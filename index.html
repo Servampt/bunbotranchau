@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảo ❤️ Linh | Vùng Trời Bí Mật</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700;900&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ffe4e8 0%, #ffb3c6 50%, #e0b1cb 100%);
+            --pink-main: #ff8fab;
+            --pink-dark: #c9184a;
+            --purple-light: #e0b1cb;
+            --purple-dark: #5e548e;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #4a0b1c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: bgShift 15s ease infinite;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            cursor: pointer;
+        }
+
+        @keyframes bgShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* --- CANVAS BACKGROUND --- */
+        #particle-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
+        }
+
+        /* --- MÀN HÌNH KHÓA --- */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(255, 179, 198, 0.8); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 999999; transition: all 1s ease;
+        }
+        .login-box {
+            background: rgba(255, 255, 255, 0.9); padding: 50px; border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(94, 84, 142, 0.2); text-align: center; border: 2px solid var(--white);
+            max-width: 90%; transform: scale(0.9); animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes popIn { to { transform: scale(1); } }
+        .login-box h2 { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--pink-dark); margin-bottom: 10px; }
+        .login-box p { font-size: 1.2rem; color: var(--purple-dark); font-weight: 700; margin-bottom: 30px; }
+        .password-input {
+            width: 100%; padding: 15px 20px; border: 3px solid var(--purple-light); border-radius: 20px;
+            font-size: 2rem; text-align: center; letter-spacing: 15px; outline: none; background: #fff;
+            color: var(--pink-dark); font-family: 'Quicksand', sans-serif; font-weight: 900; transition: 0.3s; margin-bottom: 25px;
+        }
+        .password-input:focus { border-color: var(--purple-dark); box-shadow: 0 0 25px rgba(224, 177, 203, 0.8); transform: scale(1.05); }
+        .unlock-btn {
+            background: linear-gradient(45deg, var(--pink-main), var(--purple-light)); color: white; border: none;
+            padding: 18px 40px; border-radius: 50px; font-size: 1.3rem; font-weight: 900; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(224, 177, 203, 0.5); transition: 0.3s; width: 100%; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .unlock-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(94, 84, 142, 0.4); }
+        .error-msg { color: #d90429; font-size: 1.1rem; margin-top: 15px; font-weight: bold; opacity: 0; }
+        .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
+
+        /* --- NỘI DUNG CHÍNH --- */
+        #main-content { display: none; width: 100%; flex-direction: column; align-items: center; opacity: 0; transition: opacity 1.5s ease; padding-bottom: 100px; }
+
+        /* --- GLASSMORPHISM COMPONENTS --- */
+        .glass-panel {
+            background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* --- MUSIC PLAYER --- */
+        #music-player {
+            position: fixed; top: 20px; right: 20px; padding: 10px 25px; display: flex; align-items: center; gap: 15px;
+            z-index: 1000; transition: 0.3s;
+        }
+        #music-player:hover { transform: scale(1.05) translateY(-5px); }
+        .vinyl { width: 35px; height: 35px; background: radial-gradient(circle, #111 40%, #333 100%); border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: spin 3s linear infinite; animation-play-state: paused; border: 2px solid #fff; }
+        .vinyl::after { content: ''; width: 12px; height: 12px; background: var(--pink-main); border-radius: 50%; }
+        .vinyl.playing { animation-play-state: running; }
+
+        /* --- HEADER --- */
+        header { margin-top: 15vh; text-align: center; margin-bottom: 50px; }
+        h1 {
+            font-family: 'Dancing Script', cursive; font-size: 6rem; color: var(--pink-dark);
+            text-shadow: 4px 4px 0px #fff, 0 0 30px rgba(251, 111, 146, 0.8); margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.8rem; font-weight: 900; background: var(--white); color: var(--purple-dark);
+            padding: 10px 40px; border-radius: 50px; display: inline-block; box-shadow: 0 10px 25px rgba(224, 177, 203, 0.6);
+        }
+
+        /* --- TIMER --- */
+        .timer-container { display: flex; gap: 25px; justify-content: center; margin-bottom: 80px; }
+        .time-box {
+            width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transform: rotate(-3deg); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .time-box:nth-child(even) { transform: rotate(3deg); }
+        .time-box:hover { transform: scale(1.2) rotate(0deg); background: var(--white); }
+        .time-box span { font-size: 3rem; font-weight: 900; color: var(--pink-dark); line-height: 1; text-shadow: 2px 2px 0px #fff; }
+        .time-box p { font-size: 0.9rem; font-weight: 900; color: var(--purple-dark); margin-top: 5px; letter-spacing: 1px; }
+
+        /* --- TIMELINE --- */
+        .timeline-section { width: 100%; max-width: 900px; position: relative; margin-bottom: 100px; }
+        .timeline-section::before { content: ''; position: absolute; left: 50%; top: 0; height: 100%; width: 4px; background: rgba(255,255,255,0.6); transform: translateX(-50%); border-radius: 10px; }
+        .tl-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; width: 100%; opacity: 0; transform: translateY(50px); transition: 0.8s; }
+        .tl-item.visible { opacity: 1; transform: translateY(0); }
+        .tl-item:nth-child(even) { flex-direction: row-reverse; }
+        .tl-content { width: 45%; padding: 30px; transition: 0.4s; }
+        .tl-content:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(94, 84, 142, 0.2); }
+        .tl-date { font-weight: 900; color: var(--pink-dark); margin-bottom: 10px; font-size: 1.5rem; }
+        .tl-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--pink-main), var(--purple-light)); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; z-index: 10; box-shadow: 0 0 20px rgba(224, 177, 203, 0.8); border: 4px solid #fff; }
+
+        /* --- 3D GALLERY --- */
+        .gallery-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; max-width: 1100px; margin-bottom: 100px; perspective: 1200px; }
+        .polaroid { background: #fff; padding: 15px 15px 50px 15px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); width: 300px; position: relative; transition: 0.6s transform; transform-style: preserve-3d; border: 1px solid #eee; }
+        .polaroid img { width: 100%; height: 280px; object-fit: cover; border-radius: 10px; }
+        .polaroid .caption { font-family: 'Dancing Script', cursive; font-size: 2.5rem; text-align: center; margin-top: 15px; color: var(--purple-dark); }
+        .polaroid:nth-child(1) { transform: rotateY(-15deg) rotateZ(-3deg); }
+        .polaroid:nth-child(2) { transform: translateZ(30px); z-index: 5; }
+        .polaroid:nth-child(3) { transform: rotateY(15deg) rotateZ(3deg); }
+        .polaroid:hover { transform: translateZ(80px) translateY(-20px) rotate(0deg) scale(1.1); box-shadow: 0 30px 60px rgba(201, 24, 74, 0.3); z-index: 10; }
+        .tape { position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 120px; height: 45px; background: rgba(224, 177, 203, 0.8); backdrop-filter: blur(5px); z-index: 2; border-radius: 2px; }
+
+        /* --- TÍNH NĂNG MỚI 1: LỌ TÌNH YÊU (GACHA) --- */
+        .gacha-section { text-align: center; padding: 50px; max-width: 800px; margin-bottom: 100px; }
+        .gacha-section h2 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--pink-dark); margin-bottom: 20px; }
+        .jar-icon { font-size: 5rem; cursor: pointer; transition: 0.3s; display: inline-block; animation: float 3s infinite; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2)); }
+        .jar-icon:hover { transform: scale(1.2) rotate(15deg); }
+        .gacha-result { margin-top: 30px; font-size: 1.5rem; color: var(--purple-dark); font-weight: 700; min-height: 80px; padding: 20px; background: #fff; border-radius: 20px; border: 3px dashed var(--pink-main); opacity: 0; transition: 0.5s; transform: scale(0.8); }
+        .gacha-result.show { opacity: 1; transform: scale(1); }
+
+        /* --- TÍNH NĂNG MỚI 2: MÁY ĐO TÌNH YÊU (MINIGAME) --- */
+        .love-meter-game { text-align: center; padding: 50px; max-width: 800px; margin-bottom: 100px; width: 90%; }
+        .love-meter-game h2 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--purple-dark); margin-bottom: 20px; }
+        .meter-bar { width: 100%; height: 40px; background: #fff; border-radius: 50px; border: 4px solid var(--purple-light); overflow: hidden; margin-bottom: 30px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.1); }
+        .meter-fill-game { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); transition: width 0.1s; }
+        .smash-btn { background: var(--pink-dark); color: white; padding: 15px 40px; font-size: 1.5rem; border-radius: 50px; border: none; font-weight: 900; cursor: pointer; box-shadow: 0 10px 20px rgba(201, 24, 74, 0.4); transition: 0.1s; }
+        .smash-btn:active { transform: scale(0.9); background: var(--pink-main); }
+        .game-status { font-size: 1.5rem; font-weight: 900; color: var(--pink-dark); margin-top: 20px; min-height: 40px; }
+
+        /* --- SANRIO SQUAD --- */
+        .sanrio-squad { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px; max-width: 900px; margin-bottom: 100px; border: 3px solid #fff; }
+        .sanrio-item { position: relative; text-align: center; }
+        .sanrio-img { width: 120px; transition: 0.3s; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15)); animation: float 4s ease-in-out infinite; cursor: pointer; }
+        .sanrio-item:nth-child(even) .sanrio-img { animation-delay: 1.5s; }
+        .sanrio-img:hover { transform: scale(1.3) rotate(10deg); animation-play-state: paused; }
+        .chat-bubble {
+            position: absolute; bottom: 130px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: #fff; padding: 15px; border-radius: 20px; border: 2px solid var(--purple-light);
+            width: 180px; font-weight: 900; color: var(--purple-dark); font-size: 1rem; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .chat-bubble::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: #fff transparent transparent transparent; }
+        .sanrio-item:hover .chat-bubble { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* --- BỨC THƯ TÌNH --- */
+        .love-letter {
+            background: #fff; background-image: repeating-linear-gradient(transparent, transparent 39px, rgba(224, 177, 203, 0.4) 39px, rgba(224, 177, 203, 0.4) 40px);
+            padding: 60px 70px; width: 90%; max-width: 800px; border-radius: 20px; box-shadow: 0 25px 50px rgba(94, 84, 142, 0.2);
+            font-size: 1.4rem; line-height: 40px; position: relative; border: 2px solid var(--white); font-weight: 700; color: var(--text-dark);
+        }
+        .love-letter::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50px; width: 3px; background: rgba(201, 24, 74, 0.4); }
+        .love-letter p { margin-left: 20px; margin-bottom: 20px; }
+        .signature { text-align: right; font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--pink-dark); margin-top: 40px; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        
+        /* Hiệu ứng Pháo hoa & Click */
+        .particle { position: fixed; pointer-events: none; border-radius: 50%; z-index: 99999; animation: pop 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; }
+        @keyframes pop { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- KHÔNG GIAN SAO LẤP LÁNH -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- MÀN HÌNH KHÓA: MẬT KHẨU 201207 -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>Vùng Trời Bí Mật 🔒</h2>
+            <p>Nhập mật khẩu để mở hộp quà nhé!</p>
+            <input type="password" id="pwd-input" class="password-input" placeholder="••••••" maxlength="6">
+            <button class="unlock-btn" onclick="checkPassword()">Mở Khóa Trái Tim 🔓</button>
+            <div id="error-msg" class="error-msg">Sai rồi! Gợi ý: Ngày sinh nhật của Linh nha 💜</div>
+        </div>
+    </div>
+
+    <!-- AUDIO: "Đã lỡ yêu em nhiều" -->
+    <audio id="bg-music" loop>
+        <source src="da-lo-yeu-em-nhieu.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <div id="main-content">
+        <div id="music-player" class="glass-panel" onclick="toggleMusic()">
+            <div class="vinyl" id="vinyl-disc"></div>
+            <span id="music-text" style="font-weight: 900; font-size: 1.1rem; color: var(--pink-dark);">Đang phát "Đã lỡ yêu em nhiều" 💜</span>
+        </div>
+
+        <header>
+            <h1>Happy Anniversary!</h1>
+            <div class="subtitle">Bảo (Trân Châu) ❤️ Linh (Bún Bò)</div>
+            
+            <div class="timer-container" style="margin-top: 50px;">
+                <div class="time-box glass-panel"><span id="days">00</span><p>NGÀY</p></div>
+                <div class="time-box glass-panel"><span id="hours">00</span><p>GIỜ</p></div>
+                <div class="time-box glass-panel"><span id="minutes">00</span><p>PHÚT</p></div>
+                <div class="time-box glass-panel"><span id="seconds">00</span><p>GIÂY</p></div>
+            </div>
+        </header>
+
+        <!-- DÒNG THỜI GIAN (Hiệu ứng cuộn) -->
+        <div class="timeline-section">
+            <div class="tl-item scroll-anim">
+                <div class="tl-content glass-panel">
+                    <div class="tl-date">9/5/2026</div>
+                    <p>Ngày Bảo và Linh chính thức thành đôi! Trái tim "Trân Châu" đã bị "Bún Bò" đánh cắp mất rồi! ✨</p>
+                </div>
+                <div class="tl-icon">💖</div>
+            </div>
+            <div class="tl-item scroll-anim">
+                <div class="tl-content glass-panel">
+                    <div class="tl-date">Một ngày rực rỡ...</div>
+                    <p>Lần hẹn hò đầu tiên. Bảo đã biết nụ cười của Linh là thứ đẹp nhất trên đời. 🥰</p>
+                </div>
+                <div class="tl-icon">📸</div>
+            </div>
+            <div class="tl-item scroll-anim">
+                <div class="tl-content glass-panel">
+                    <div class="tl-date">Kỷ niệm 1 Tháng</div>
+                    <p>Chúc mừng chúng ta! Linh đã mở được món quà này, hãy cứ nắm tay Bảo đi tiếp nhé! 🌸</p>
+                </div>
+                <div class="tl-icon">💌</div>
+            </div>
+        </div>
+
+        <!-- 3D GALLERY -->
+        <section class="gallery-container scroll-anim">
+            <div class="polaroid">
+                <div class="tape"></div>
+                <img src="anh1.jpg" onerror="this.src='https://via.placeholder.com/300x400/ff8fab/fff?text=Anh+Xinh+1'">
+                <div class="caption">Cùng nhau 💖</div>
+            </div>
+            <div class="polaroid">
+                <div class="tape"></div>
+                <img src="anh2.jpg" onerror="this.src='https://via.placeholder.com/300x400/fb6f92/fff?text=Anh+Xinh+2'">
+                <div class="caption">Nụ cười của Linh 🍜</div>
+            </div>
+            <div class="polaroid">
+                <div class="tape"></div>
+                <img src="anh3.jpg" onerror="this.src='https://via.placeholder.com/300x400/e0b1cb/fff?text=Anh+Xinh+3'">
+                <div class="caption">Mãi keo nhé! ✨</div>
+            </div>
+        </section>
+
+        <!-- TÍNH NĂNG MỚI: LỌ TÌNH YÊU -->
+        <section class="gacha-section glass-panel scroll-anim">
+            <h2>Lọ Tình Yêu Của Bảo 💌</h2>
+            <p style="margin-bottom: 20px; font-weight: 700; color: var(--purple-dark);">Bấm vào chiếc lọ để rút một lời nhắn ngọt ngào nhé!</p>
+            <div class="jar-icon" onclick="drawGacha()">🏺</div>
+            <div id="gacha-result" class="gacha-result"></div>
+        </section>
+
+        <!-- TÍNH NĂNG MỚI: MINIGAME ĐO TÌNH YÊU -->
+        <section class="love-meter-game glass-panel scroll-anim">
+            <h2>Kiểm Tra Độ Yêu ❤️</h2>
+            <p style="margin-bottom: 20px; font-weight: 700;">Linh hãy nhấp vào nút bên dưới thật nhanh để bơm đầy thanh tình yêu nha!</p>
+            <div class="meter-bar">
+                <div class="meter-fill-game" id="game-fill"></div>
+            </div>
+            <button class="smash-btn" onclick="smashButton()">BƠM TÌNH YÊU 💕</button>
+            <div id="game-status" class="game-status">Đang đợi Linh bấm...</div>
+        </section>
+
+        <!-- ĐẠI HỘI SANRIO -->
+        <section class="sanrio-squad glass-panel scroll-anim">
+            <!-- Miffy -->
+            <div class="sanrio-item">
+                <div class="chat-bubble">Trân Châu và Bún Bò mãi keo nha! ✨</div>
+                <img src="https://i.pinimg.com/originals/c9/de/5d/c9de5d09f7a40b1ee2de7fc4eb0ad2c0.png" alt="Miffy" class="sanrio-img" onerror="this.src='https://via.placeholder.com/120?text=Miffy'">
+            </div>
+            <!-- Hello Kitty -->
+            <div class="sanrio-item">
+                <div class="chat-bubble">1 tháng vui vẻ nha Bảo và Linh! 🎀</div>
+                <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png" alt="Kitty" class="sanrio-img" onerror="this.src='https://via.placeholder.com/120?text=Kitty'">
+            </div>
+            <!-- My Melody -->
+            <div class="sanrio-item">
+                <div class="chat-bubble">Chúc hai cậu mãi ngọt ngào như dâu tây! 🍓</div>
+                <img src="https://i.pinimg.com/originals/97/58/05/975805561de1204cf0122db5204ba509.png" alt="Melody" class="sanrio-img" onerror="this.src='https://via.placeholder.com/120?text=Melody'">
+            </div>
+            <!-- Kuromi -->
+            <div class="sanrio-item">
+                <div class="chat-bubble">Bảo yêu Linh lắmmm! Đừng có bắt nạt Bảo nha! 💜</div>
+                <img src="https://i.pinimg.com/originals/3f/82/1b/3f821b0a8d46fb5cf4871d3a5e003180.png" alt="Kuromi" class="sanrio-img" onerror="this.src='https://via.placeholder.com/120?text=Kuromi'">
+            </div>
+        </section>
+
+        <!-- LÁ THƯ TÌNH -->
+        <section class="love-letter scroll-anim">
+            <p><strong>To: Linh (Bún Bò) siêu cấp đáng yêu của Bảo,</strong></p>
+            <p>Bắt đầu từ ngày 9/5 định mệnh đó, thời gian của Bảo như được tính bằng những nụ cười. Nhìn con số đếm ngày đếm tháng trên kia cứ tăng lên, Bảo chỉ muốn thế giới này cứ mãi màu hồng (và có thêm chút màu tím của Kuromi mà Linh thích nữa).</p>
+            <p>Cảm ơn Linh vì đã bước vào cuộc sống của Bảo. Bài hát đang phát Bảo đã gửi gắm hết tâm tư vào đó rồi đấy! Hãy để "Trân Châu" này tiếp tục đồng hành cùng "Bún Bò" thêm nhiều nhiều tháng, nhiều nhiều năm nữa nhé. Mình sẽ ghi đầy cuốn lưu bút này bằng ảnh của hai đứa thôi!</p>
+            <div class="signature">Mãi yêu Linh, Bảo 💕</div>
+        </section>
+    </div>
+
+    <script>
+        // --- 1. MÀN HÌNH KHÓA & PHÁO HOA CHÀO MỪNG ---
+        function checkPassword() {
+            const pwd = document.getElementById('pwd-input').value;
+            const loginBox = document.querySelector('.login-box');
+            const errorMsg = document.getElementById('error-msg');
+
+            if (pwd === "292929") {
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'flex';
+                    setTimeout(() => { main.style.opacity = '1'; checkScroll(); }, 100);
+                }, 1000);
+
+                // Nhạc tự động
+                const bgMusic = document.getElementById("bg-music");
+                bgMusic.play();
+                document.getElementById("vinyl-disc").classList.add("playing");
+                isPlaying = true;
+
+                // Nổ pháo hoa lớn
+                fireworks(window.innerWidth/2, window.innerHeight/2, 100);
+
+            } else {
+                loginBox.classList.add('shake');
+                errorMsg.style.opacity = '1';
+                setTimeout(() => { loginBox.classList.remove('shake'); }, 500);
+            }
+        }
+        document.getElementById("pwd-input").addEventListener("keypress", e => { if(e.key === "Enter") checkPassword(); });
+
+        // --- 2. AUDIO PLAYER ---
+        let isPlaying = false;
+        function toggleMusic() {
+            const bgMusic = document.getElementById("bg-music");
+            const vinyl = document.getElementById("vinyl-disc");
+            const txt = document.getElementById("music-text");
+            if (isPlaying) { bgMusic.pause(); vinyl.classList.remove("playing"); txt.innerText = 'Phát "Đã lỡ yêu em nhiều" 🎶'; } 
+            else { bgMusic.play(); vinyl.classList.add("playing"); txt.innerText = "Đang phát Đã lỡ yêu em nhiều 💜"; }
+            isPlaying = !isPlaying;
+        }
+
+        // --- 3. TIMER ĐẾM NGÀY (Từ 09/05/2026) ---
+        const startDate = new Date(2026, 4, 9, 0, 0, 0).getTime();
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+            if(diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }
+        setInterval(updateTimer, 1000); updateTimer();
+
+        // --- 4. SCROLL ANIMATION (Cuộn đến đâu hiện đến đó) ---
+        function checkScroll() {
+            const elements = document.querySelectorAll('.scroll-anim');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 100) el.classList.add('visible');
+            });
+        }
+        window.addEventListener('scroll', checkScroll);
+
+        // --- 5. LỌ TÌNH YÊU (GACHA) ---
+        const messages = [
+            "Bảo yêu nụ cười của Linh nhất trên đời! 🥰",
+            "Mỗi ngày được nói chuyện với Bún Bò là một ngày vui! 🌸",
+            "Linh là cô gái đáng yêu nhất vũ trụ này! 🚀",
+            "Hôm nay Linh đã ăn ngoan chưa? Nhớ Linh quá! 🍜",
+            "Trân Châu nguyện nhường Bún Bò mọi lúc mọi nơi! 💜",
+            "Không có Linh, thế giới của Bảo mất hẳn màu hồng! ✨"
+        ];
+        function drawGacha() {
+            const resultBox = document.getElementById('gacha-result');
+            resultBox.classList.remove('show');
+            setTimeout(() => {
+                resultBox.innerText = messages[Math.floor(Math.random() * messages.length)];
+                resultBox.classList.add('show');
+                fireworks(window.innerWidth/2, window.innerHeight/2, 20);
+            }, 300);
+        }
+
+        // --- 6. MINIGAME MÁY ĐO TÌNH YÊU ---
+        let clicks = 0;
+        let gameActive = true;
+        function smashButton() {
+            if(!gameActive) return;
+            clicks += 5; // Tăng thanh
+            if(clicks > 100) clicks = 100;
+            document.getElementById('game-fill').style.width = clicks + '%';
+            
+            if(clicks >= 100) {
+                gameActive = false;
+                document.getElementById('game-status').innerHTML = "BÙMM! 100% - Linh yêu Bảo vô bờ bến!! 💥💕";
+                document.querySelector('.smash-btn').innerText = "ĐÃ ĐẠT TỐI ĐA!";
+                fireworks(window.innerWidth/2, window.innerHeight/2, 80);
+            } else {
+                document.getElementById('game-status').innerText = "Cố lên! Nhanh tay nữa lên Linh ơiii! " + clicks + "%";
+            }
+        }
+        // Thanh tự động tụt xuống để tăng độ khó
+        setInterval(() => {
+            if(gameActive && clicks > 0) {
+                clicks -= 1.5;
+                if(clicks < 0) clicks = 0;
+                document.getElementById('game-fill').style.width = clicks + '%';
+            }
+        }, 100);
+
+        // --- 7. HIỆU ỨNG CLICK PHÁO HOA ---
+        function fireworks(x, y, count) {
+            const colors = ['#ff8fab', '#fb6f92', '#e0b1cb', '#c9184a', '#ffffff'];
+            for(let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = x + 'px'; p.style.top = y + 'px';
+                
+                const size = Math.random() * 15 + 5;
+                p.style.width = size + 'px'; p.style.height = size + 'px';
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 200 + 50;
+                p.style.setProperty('--tx', Math.cos(angle) * velocity + 'px');
+                p.style.setProperty('--ty', Math.sin(angle) * velocity + 'px');
+                
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+        document.addEventListener('click', e => { if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') fireworks(e.clientX, e.clientY, 8); });
+
+        // --- 8. CANVAS PARTICLES (Hình nền động) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particles = [];
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.color = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.5)' : 'rgba(224, 177, 203, 0.5)';
+            }
+            update() {
+                this.y += this.speedY; this.x += this.speedX;
+                if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        function initParticles() { for(let i=0; i<100; i++) particles.push(new Particle()); }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles(); animateParticles();
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+    </script>
+</body>
+</html>
