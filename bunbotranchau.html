@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kỷ niệm 1 tháng | Trân Châu ❤️ Bún Bò</title>
+    <!-- Phông chữ Google Fonts: Pacifico (cute) và Playfair Display (sang trọng) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- Reset & Variables --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #fbc6d9; /* Pink pastel nhẹ hơn */
+            --secondary-pink: #ffb7c5; /* Pink pastel đậm hơn chút */
+            --rose-gold: #c6a690; /* Tông Rose Gold */
+            --white: #ffffff;
+            --light-cream: #fffaf0;
+            --text-dark: #333333;
+            --heart-red: #ff4d4d;
+            --cute-border-radius: 20px;
+            --transition-speed: 0.4s;
+        }
+
+        body {
+            background-color: var(--light-cream);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header: Hero Section --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #fff1f5 100%);
+            position: relative;
+            z-index: 10;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23fffaf0" fill-opacity="1" d="M0,224L120,229.3C240,235,480,245,720,224C960,203,1200,149,1320,122.7L1440,96L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 50px;
+            border-radius: var(--cute-border-radius);
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 20;
+        }
+
+        .header-content h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 4em;
+            color: var(--secondary-pink);
+            text-shadow: 2px 2px 5px rgba(200, 166, 144, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .header-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--rose-gold);
+            margin-bottom: 20px;
+        }
+
+        .header-content h3 {
+            font-size: 1.2em;
+            color: #777;
+            font-weight: 300;
+        }
+
+        .heart-icon {
+            color: var(--heart-red);
+            font-size: 1.5em;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.4); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.4); }
+            70% { transform: scale(1); }
+        }
+
+        /* --- Love Story Timeline --- */
+        .love-story {
+            padding: 100px 20px;
+            background-color: var(--light-cream);
+        }
+
+        .love-story h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: var(--rose-gold);
+            margin-bottom: 50px;
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary-pink);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: var(--white);
+            border: 3px solid var(--primary-pink);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline-content {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: var(--cute-border-radius);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.2);
+            width: 45%;
+            text-align: left;
+            position: relative;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.5em;
+            color: var(--secondary-pink);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* --- Photo Gallery Pro --- */
+        .gallery-pro {
+            padding: 100px 20px;
+            background-color: var(--white);
+        }
+
+        .gallery-pro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: var(--rose-gold);
+            margin-bottom: 50px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--cute-border-radius);
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 182, 193, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .photo-overlay i {
+            color: var(--white);
+            font-size: 2em;
+        }
+
+        /* --- Cute Characters Connection --- */
+        .cute-connections {
+            padding: 100px 20px;
+            background-color: var(--light-cream);
+        }
+
+        .cute-connections h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5em;
+            color: var(--secondary-pink);
+            margin-bottom: 50px;
+        }
+
+        .character-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: var(--cute-border-radius);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.2);
+            flex: 1 1 250px;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.4);
+        }
+
+        .character-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .character-card h4 {
+            font-size: 1.5em;
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        /* --- Trân Châu's Letter Section --- */
+        .love-letter {
+            padding: 120px 20px;
+            background-color: var(--white);
+            position: relative;
+        }
+
+        .love-letter::before {
+            content: '💌';
+            font-size: 5em;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.2;
+        }
+
+        .letter-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px;
+            background: linear-gradient(to right bottom, #fff, #fef);
+            border-radius: var(--cute-border-radius);
+            box-shadow: 0 10px 50px rgba(255, 182, 193, 0.4);
+            line-height: 2.1;
+            font-size: 1.3em;
+            color: #444;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-content::after {
+            content: '💕';
+            font-size: 2em;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .letter-content p {
+            margin-bottom: 25px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 40px;
+            background: linear-gradient(135deg, #fff 0%, #fff1f5 100%);
+            color: var(--rose-gold);
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .header-content { padding: 30px; }
+            .header-content h1 { font-size: 2.5em; }
+            .header-content h2 { font-size: 1.8em; }
+            .timeline-item, .timeline-item:nth-child(even) { justify-content: center; }
+            .timeline-content { width: 80%; text-align: center; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .letter-content { padding: 30px; font-size: 1em; }
+        }
+
+        /* --- Floating Objects Animation --- */
+        .floating-objects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .float-obj {
+            position: absolute;
+            opacity: 0.5;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Lớp vật thể bay -->
+    <div class="floating-objects">
+        <span class="float-obj" style="top: 10vh; left: 10vw; color: #ffb7c5;">💖</span>
+        <span class="float-obj" style="top: 30vh; right: 15vw; color: #c6a690;">✨</span>
+        <span class="float-obj" style="top: 60vh; left: 20vw; color: #fbc6d9;">💖</span>
+        <span class="float-obj" style="top: 80vh; right: 25vw; color: #ffb7c5;">💕</span>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-content">
+            <h1>Happy 1 Month Anniversary! <span class="heart-icon">❤️</span></h1>
+            <h2>Trân Châu ❤️ Bún Bò</h2>
+            <h3>A Journey of a Thousand Smiles Begins Here</h3>
+        </div>
+    </header>
+
+    <!-- Love Story Timeline Section -->
+    <section class="love-story">
+        <h2>Our Beautiful Beginning</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon">✨</div>
+                <div class="timeline-content">
+                    <h4>Day 1</h4>
+                    <p>Ngày đầu tiên mình gặp nhau, tim "Trân Châu" đập loạn nhịp vì "Bún Bò". Chẳng thể ngờ một nụ cười của bạn lại có thể làm thế giới của tớ bừng sáng đến vậy!</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">📸</div>
+                <div class="timeline-content">
+                    <h4>Week 1</h4>
+                    <p>Lần đầu đi chơi riêng. "Bún Bò" thật sự chu đáo, hài hước và làm tớ cười suốt thôi. Tấm ảnh đầu tiên mình chụp cùng nhau thật là ngốc xít nhưng cũng đáng yêu vô cùng!</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">💕</div>
+                <div class="timeline-content">
+                    <h4>Week 2</h4>
+                    <p>Tình cảm lớn dần lên qua từng dòng tin nhắn, từng cuộc gọi đến khuya. Nhận ra rằng mình có thật nhiều điểm chung, và dường như Bún Bò sinh ra là để dành cho Trân Châu.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">💖</div>
+                <div class="timeline-content">
+                    <h4>Week 4</h4>
+                    <p>Ngày kỷ niệm 1 tháng! Chúng ta đã có những khoảng thời gian thật ngọt ngào, thấu hiểu và yêu thương nhau. Đây chính là cột mốc đầu tiên trong hành trình dài phía trước!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Pro Section -->
+    <section class="gallery-pro">
+        <h2>Captured Moments</h2>
+        <div class="photo-grid">
+            <div class="photo-item">
+                <!-- Thay thế URL ảnh của hai bạn -->
+                <img src="https://via.placeholder.com/400x500?text=Lovely+Moment+1" alt="Lovely Moment 1">
+                <div class="photo-overlay"><i>💕</i></div>
+            </div>
+            <div class="photo-item">
+                <img src="https://via.placeholder.com/400x500?text=Lovely+Moment+2" alt="Lovely Moment 2">
+                <div class="photo-overlay"><i>📸</i></div>
+            </div>
+            <div class="photo-item">
+                <img src="https://via.placeholder.com/400x500?text=Lovely+Moment+3" alt="Lovely Moment 3">
+                <div class="photo-overlay"><i>💖</i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cute Characters Section (Sanrio/Cute) -->
+    <section class="cute-connections">
+        <h2>Cute Friends Forever</h2>
+        <div class="character-row">
+            <div class="character-card">
+                <!-- Hello Kitty -->
+                <img src="https://assets.logos.com/logos/brands/sanrio-hello-kitty/logo.png" alt="Hello Kitty logo">
+                <h4>Hello Kitty</h4>
+            </div>
+            <div class="character-card">
+                <!-- My Melody -->
+                <img src="https://assets.logos.com/logos/brands/sanrio-my-melody/logo.png" alt="My Melody logo">
+                <h4>My Melody</h4>
+            </div>
+            <div class="character-card">
+                <!-- Miffy -->
+                <img src="https://via.placeholder.com/200x200?text=Miffy+Cute+Style" alt="Miffy cute">
+                <h4>Miffy</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trân Châu's Letter Section -->
+    <section class="love-letter">
+        <div class="letter-content">
+            <p><strong>Gửi Bún Bò của Trân Châu,</strong></p>
+            <p>Thế là chúng mình đã cùng nhau "xây" nên một tháng tình yêu thật lung linh và đầy ắp những kỷ niệm ngọt ngào! Một tháng không quá dài, nhưng cũng đủ để Trân Châu cảm nhận được trọn vẹn sự quan tâm, yêu thương và thấu hiểu từ Bún Bò. Cảm ơn Bún Bò vì đã là một mảnh ghép hoàn hảo, đã luôn ở bên lắng nghe, chia sẻ và làm cho mỗi ngày của tớ trở nên đặc biệt.</p>
+            <p>Chúng mình đã có những tiếng cười ròn rã, những cái nắm tay thật chặt, và cả những tấm ảnh kỷ niệm siêu đáng yêu! Chúc cho tình yêu của chúng ta sẽ luôn đẹp, luôn vui vẻ và ngày càng thêm gắn kết. Hãy cùng nhau khám phá thêm nhiều tháng, nhiều năm nữa để lưu đầy ắp ảnh và những khoảnh khắc tuyệt vời vào cuốn album kỷ niệm này nhé! Yêu Bún Bò thật nhiều! 💕</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Thiết kế bằng cả trái tim của Trân Châu dành cho Bún Bò © 2026 | Forever Together</p>
+    </footer>
+
+</body>
+</html>
