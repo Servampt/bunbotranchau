@@ -27,6 +27,17 @@
             cursor: pointer;
         }
 
+        /* --- HIỆU ỨNG LƯỚT HIỆN DẦN (SCROLL REVEAL) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- CLOUDS BACKGROUND --- */
         .clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .cloud { position: absolute; font-size: 4rem; opacity: 0.7; animation: floatCloud linear infinite; filter: drop-shadow(0 10px 10px rgba(255,255,255,0.8)); }
@@ -98,20 +109,71 @@
         .time-box span { font-size: 2.5rem; font-weight: 900; color: var(--pink-dark); line-height: 1; }
         .time-box p { font-size: 0.8rem; font-weight: 900; color: var(--purple-dark); margin-top: 5px; }
 
-        /* --- DÂY PHƠI KỶ NIỆM --- */
-        .clothesline-wrapper { width: 100%; max-width: 1000px; margin: 50px 0 100px; position: relative; }
-        .rope { position: absolute; top: 20px; left: 0; width: 100%; height: 100px; border-top: 4px dashed var(--white); border-radius: 50%; opacity: 0.8; z-index: 1; }
-        .hanging-photos { display: flex; justify-content: space-around; padding-top: 20px; position: relative; z-index: 2; flex-wrap: wrap; gap: 30px; }
-        .photo-card { background: #fff; padding: 15px 15px 45px 15px; border-radius: 10px; box-shadow: 5px 15px 25px rgba(0,0,0,0.1); width: 260px; position: relative; transform-origin: top center; animation: swingPhoto 4s ease-in-out infinite; border: 1px solid #eee; }
-        .photo-card:nth-child(1) { animation-delay: 0s; } .photo-card:nth-child(2) { animation-delay: 1s; } .photo-card:nth-child(3) { animation-delay: 2s; }
-        @keyframes swingPhoto { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
-        .photo-card:hover { animation-play-state: paused; transform: scale(1.1) rotate(0deg); z-index: 10; box-shadow: 0 25px 50px rgba(251, 111, 146, 0.4); }
-        .clip { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 15px; height: 35px; background: var(--pink-main); border-radius: 10px; border: 2px solid #fff; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .clip::after { content: ''; position: absolute; top: 15px; left: 2px; width: 7px; height: 3px; background: #fff; border-radius: 2px; }
-        .photo-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
-        .photo-card .caption { font-family: 'Dancing Script', cursive; font-size: 2.2rem; text-align: center; margin-top: 15px; color: var(--pink-dark); }
+        /* --- ALBUM SCRAPBOOK 10 ẢNH --- */
+        .scrapbook-wrapper { width: 100%; max-width: 1200px; margin: 50px auto 100px; text-align: center; }
+        .scrapbook-title { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--pink-dark); text-shadow: 3px 3px 0px #fff; margin-bottom: 10px; }
+        .scrapbook-desc { font-weight: 800; color: var(--purple-dark); margin-bottom: 40px; font-size: 1.2rem; }
+        
+        .scrapbook-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 20px; }
+        
+        .scrapbook-card {
+            background: #fff; padding: 15px 15px 50px 15px; border-radius: 8px;
+            box-shadow: 5px 15px 30px rgba(94, 84, 142, 0.15); width: 260px; position: relative;
+            transition: all 0.4s ease; border: 1px solid #ffe4e8; cursor: pointer;
+        }
+        
+        .scrapbook-card img { width: 100%; height: 260px; object-fit: cover; border-radius: 5px; }
+        .scrapbook-card .caption { font-family: 'Dancing Script', cursive; font-size: 2.2rem; text-align: center; margin-top: 15px; color: var(--pink-dark); font-weight: bold; }
+        
+        .washi-tape {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg);
+            width: 110px; height: 35px; background-color: rgba(255, 143, 171, 0.8);
+            backdrop-filter: blur(5px); z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 2px;
+        }
+        .tape-purple { background-color: rgba(224, 177, 203, 0.8); transform: translateX(-50%) rotate(2deg); }
+        .tape-pink { background-color: rgba(251, 111, 146, 0.8); transform: translateX(-50%) rotate(-1deg); }
+        
+        .scrapbook-card:nth-child(2n) { transform: rotate(3deg); }
+        .scrapbook-card:nth-child(2n+1) { transform: rotate(-3deg); }
+        .scrapbook-card:nth-child(3n) { transform: rotate(5deg); }
+        .scrapbook-card:nth-child(4n) { transform: rotate(-2deg); }
 
-        /* --- TÍNH NĂNG MỚI: VÒNG QUAY HẸN HÒ --- */
+        .scrapbook-card:hover {
+            transform: scale(1.1) rotate(0deg) translateY(-10px) !important;
+            box-shadow: 5px 25px 40px rgba(251, 111, 146, 0.4); z-index: 10; border-color: var(--pink-main);
+        }
+
+        .cute-sticker { position: absolute; bottom: 15px; right: 15px; font-size: 1.8rem; transform: rotate(-15deg); filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2)); }
+
+        /* --- ĐỘ ĐO TÌNH YÊU (CẢI TIẾN) --- */
+        .love-meter-section { text-align: center; padding: 50px; max-width: 800px; margin-bottom: 100px; width: 90%; }
+        .love-meter-section h2 { font-family: 'Mali', cursive; font-size: 3rem; color: var(--pink-dark); margin-bottom: 20px; }
+        
+        .meter-container { position: relative; width: 100%; height: 60px; background: #fff; border-radius: 50px; border: 5px solid var(--purple-light); overflow: visible; margin-bottom: 30px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.1); }
+        
+        .meter-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); border-radius: 50px; transition: width 0.3s ease-out; position: relative; }
+        
+        /* Hiệu ứng vỡ */
+        .shatter-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"%3E%3Cpath d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%23fb6f92" stroke-width="2"/%3E%3Cpath d="M20,0 L30,40 L10,60 L25,100 M50,0 L45,30 L60,50 L55,80 L65,100 M80,0 L75,20 L85,50 L70,70 L80,100" fill="none" stroke="%23fb6f92" stroke-width="1.5"/%3E%3C/svg%3E'); background-size: cover; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        
+        .overcharged { animation: shakeMeter 0.2s infinite; border-color: var(--pink-dark) !important; }
+        .shattered { opacity: 1 !important; animation: shatterFade 1s forwards; }
+        .exploded { animation: explodeHearts 1s forwards; }
+
+        @keyframes shakeMeter { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-2px, 2px); } 50% { transform: translate(2px, -2px); } 75% { transform: translate(-2px, -2px); } }
+        @keyframes shatterFade { 0% { opacity: 0; } 10% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes explodeHearts { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+
+        .meter-btn { background: var(--pink-dark); color: white; padding: 15px 40px; font-size: 1.5rem; font-family: 'Mali', cursive; border-radius: 50px; border: 4px solid #fff; font-weight: 900; cursor: pointer; box-shadow: 0 10px 20px rgba(201, 24, 74, 0.4); transition: 0.2s; }
+        .meter-btn:hover { background: var(--pink-main); transform: translateY(-3px); }
+        .meter-btn:active { transform: translateY(2px) scale(0.98); }
+        .meter-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
+
+        .meter-status { font-family: 'Mali', cursive; font-size: 1.6rem; font-weight: 900; color: var(--pink-dark); margin-top: 20px; min-height: 40px; }
+        .overcharge-text { color: var(--pink-dark); animation: pulseText 0.5s infinite; }
+        @keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* --- VÒNG QUAY HẸN HÒ --- */
         .date-spinner { position: relative; display: flex; flex-direction: column; align-items: center; }
         .spinner-result {
             font-size: 1.8rem; font-weight: 900; color: var(--purple-dark);
@@ -120,20 +182,19 @@
             display: flex; align-items: center; justify-content: center; width: 100%; max-width: 500px;
             box-shadow: inset 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;
         }
-        .spinner-btn {
+        .spinner-btn-spin {
             background: linear-gradient(45deg, var(--pink-main), var(--purple-light)); color: #fff;
             font-family: 'Mali', cursive; font-size: 1.5rem; padding: 15px 50px; border-radius: 50px;
             border: 4px solid #fff; font-weight: 900; box-shadow: 0 10px 20px rgba(251, 111, 146, 0.4);
             transition: 0.2s; cursor: pointer; text-transform: uppercase;
         }
-        .spinner-btn:active { transform: translateY(5px) scale(0.95); box-shadow: 0 5px 10px rgba(251, 111, 146, 0.4); }
+        .spinner-btn-spin:active { transform: translateY(5px) scale(0.95); box-shadow: 0 5px 10px rgba(251, 111, 146, 0.4); }
 
-        /* --- ĐẠI HỘI SANRIO (CÓ FALLBACK EMOJI) --- */
+        /* --- ĐẠI HỘI SANRIO (HỖ TRỢ FALLBACK EMOJI) --- */
         .sanrio-squad { display: flex; flex-wrap: wrap; justify-content: center; gap: 45px; padding: 50px; max-width: 950px; border-radius: 60px; }
         .sanrio-item { position: relative; text-align: center; }
         .sanrio-img { width: 110px; height: 110px; object-fit: contain; transition: 0.3s; animation: float 3s ease-in-out infinite; cursor: pointer; filter: drop-shadow(0 10px 15px rgba(224, 177, 203, 0.8)); }
         
-        /* Chế độ thay thế Emoji siêu đẹp nếu ảnh bị lỗi */
         .emoji-fallback {
             width: 100px; height: 100px; background: #fff; border: 4px solid var(--pink-main);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
@@ -185,7 +246,6 @@
         </div>
     </div>
 
-    <!-- Nhạc: Đã lỡ yêu em nhiều -->
     <audio id="bg-music" loop>
         <source src="da-lo-yeu-em-nhieu.mp3" type="audio/mpeg">
     </audio>
@@ -196,7 +256,7 @@
             <span id="music-text" style="font-weight: 900; font-size: 1.1rem; color: var(--pink-dark);">Đang phát "Đã lỡ yêu em nhiều" 🎵</span>
         </div>
 
-        <header>
+        <header class="reveal">
             <h1>Happy Anniversary!</h1>
             <div class="subtitle">chòn thúiiiii ❤️ bún bòaaaa</div>
             <div class="timer-container">
@@ -207,75 +267,121 @@
             </div>
         </header>
 
-        <div class="clothesline-wrapper">
-            <div class="rope"></div>
-            <div class="hanging-photos">
-                <div class="photo-card">
-                    <div class="clip"></div>
-                    <img src="anh1.jpg" onerror="this.src='https://via.placeholder.com/300x400/ff8fab/fff?text=Anh+Xinh+1'">
-                    <div class="caption">Buổi hẹn đầu 💖</div>
+        <div class="scrapbook-wrapper">
+            <div class="reveal">
+                <h2 class="scrapbook-title">Cuốn Phim Kỷ Niệm 🎞️</h2>
+                <p class="scrapbook-desc">Cuộn xuống từ từ để xem những lúc chúng mình đi chơi nhé!</p>
+            </div>
+
+            <div class="scrapbook-gallery">
+                <div class="scrapbook-card reveal" style="transition-delay: 0.1s;">
+                    <div class="washi-tape"></div>
+                    <img src="anh1.jpg" onerror="this.src='https://via.placeholder.com/300x400/ff8fab/fff?text=Anh+1'">
+                    <div class="caption">Lần đầu gặp gỡ 💖</div>
+                    <div class="cute-sticker">✨</div>
                 </div>
-                <div class="photo-card">
-                    <div class="clip"></div>
-                    <img src="anh2.jpg" onerror="this.src='https://via.placeholder.com/300x400/fb6f92/fff?text=Anh+Xinh+2'">
-                    <div class="caption">Nụ cười của Linh 🍜</div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.2s;">
+                    <div class="washi-tape tape-purple"></div>
+                    <img src="anh2.jpg" onerror="this.src='https://via.placeholder.com/300x400/e0b1cb/fff?text=Anh+2'">
+                    <div class="caption">Đi ăn ngon 🍜</div>
                 </div>
-                <div class="photo-card">
-                    <div class="clip"></div>
-                    <img src="anh3.jpg" onerror="this.src='https://via.placeholder.com/300x400/e0b1cb/fff?text=Anh+Xinh+3'">
-                    <div class="caption">Mãi keo nhé! ✨</div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.3s;">
+                    <div class="washi-tape tape-pink"></div>
+                    <img src="anh3.jpg" onerror="this.src='https://via.placeholder.com/300x400/fb6f92/fff?text=Anh+3'">
+                    <div class="caption">Nắm tay nè 🤝</div>
+                    <div class="cute-sticker">🎀</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.1s;">
+                    <div class="washi-tape"></div>
+                    <img src="anh4.jpg" onerror="this.src='https://via.placeholder.com/300x400/ff8fab/fff?text=Anh+4'">
+                    <div class="caption">Xem phim 🎬</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.2s;">
+                    <div class="washi-tape tape-purple"></div>
+                    <img src="anh5.jpg" onerror="this.src='https://via.placeholder.com/300x400/e0b1cb/fff?text=Anh+5'">
+                    <div class="caption">Lượn Hồ Tây 🌅</div>
+                    <div class="cute-sticker">🍓</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.3s;">
+                    <div class="washi-tape tape-pink"></div>
+                    <img src="anh6.jpg" onerror="this.src='https://via.placeholder.com/300x400/fb6f92/fff?text=Anh+6'">
+                    <div class="caption">Ảnh dìm nhứt 🤣</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.1s;">
+                    <div class="washi-tape tape-purple"></div>
+                    <img src="anh7.jpg" onerror="this.src='https://via.placeholder.com/300x400/e0b1cb/fff?text=Anh+7'">
+                    <div class="caption">Cà phê xịn xò ☕</div>
+                    <div class="cute-sticker">🌸</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.2s;">
+                    <div class="washi-tape"></div>
+                    <img src="anh8.jpg" onerror="this.src='https://via.placeholder.com/300x400/ff8fab/fff?text=Anh+8'">
+                    <div class="caption">Đón em đi học 🎒</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.3s;">
+                    <div class="washi-tape tape-pink"></div>
+                    <img src="anh9.jpg" onerror="this.src='https://via.placeholder.com/300x400/fb6f92/fff?text=Anh+9'">
+                    <div class="caption">Kỷ niệm khó quên 💫</div>
+                    <div class="cute-sticker">🐰</div>
+                </div>
+                <div class="scrapbook-card reveal" style="transition-delay: 0.4s;">
+                    <div class="washi-tape"></div>
+                    <img src="anh10.jpg" onerror="this.src='https://via.placeholder.com/300x400/ff8fab/fff?text=Anh+10'">
+                    <div class="caption">Mãi keo nhaaa! 💕</div>
                 </div>
             </div>
         </div>
 
-        <!-- VÒNG QUAY HẸN HÒ -->
-        <section class="cute-panel balloon-game">
+        <section class="cute-panel love-meter-section reveal">
+            <h2>Đo thử xem Bảo yêu Linh bao nhiêu? 🤔</h2>
+            <div class="meter-container" id="meter-container">
+                <div class="meter-fill" id="meter-fill"></div>
+                <div class="shatter-overlay" id="shatter-overlay"></div>
+            </div>
+            <button class="meter-btn" id="meter-btn" onclick="startLoveMeter()">Nhấn để đo độ yêu 💕</button>
+            <div id="meter-status" class="meter-status">Đang đợi Linh bấm...</div>
+        </section>
+
+        <section class="cute-panel balloon-game reveal">
             <h2>Hôm nay hẹn hò ở đâu? 🎡</h2>
             <p style="margin-bottom: 20px; font-weight: 800; color: var(--purple-dark);">Để xem hôm nay thần tình yêu chỉ định Trân Châu dẫn Bún Bò đi đâu nhé!</p>
             <div class="date-spinner">
                 <div id="spinner-result" class="spinner-result">Bấm nút để quay! 🎲</div>
-                <button class="spinner-btn" onclick="spinDate()">QUAY NGAY 💕</button>
+                <button class="spinner-btn-spin" onclick="spinDate()">QUAY NGAY 💕</button>
             </div>
         </section>
 
-        <!-- ĐẠI HỘI SANRIO (HỖ TRỢ FALLBACK EMOJI) -->
-        <section class="cute-panel sanrio-squad">
+        <section class="cute-panel sanrio-squad reveal">
             <h2 style="width: 100%; margin-bottom: 30px;">Hội Bạn Thân Chúc Mừng 🎉</h2>
             <p style="width: 100%; margin-bottom: 30px; font-weight: bold; color: var(--purple-dark);">Click vào tụi mình đi!</p>
             
             <div class="sanrio-item" onclick="createHearts(event)">
                 <div class="chat-bubble">Trân Châu và Bún Bò mãi keo nha! ✨</div>
-                <!-- Miffy: fallback là thỏ 🐇 -->
                 <img src="miffy.png" alt="Miffy" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🐇</div>'">
             </div>
             
             <div class="sanrio-item" onclick="createHearts(event)">
                 <div class="chat-bubble">1 tháng vui vẻ nha Bảo và Linh! 🎀</div>
-                <!-- Hello Kitty: fallback là nơ 🎀 -->
                 <img src="kitty.png" alt="Kitty" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🎀</div>'">
             </div>
             
             <div class="sanrio-item" onclick="createHearts(event)">
                 <div class="chat-bubble">Chúc hai cậu mãi ngọt ngào! 🍓</div>
-                <!-- My Melody: fallback là thỏ dâu 🐰 -->
                 <img src="melody.png" alt="Melody" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🐰</div>'">
             </div>
             
             <div class="sanrio-item" onclick="createHearts(event)">
                 <div class="chat-bubble">Bảo yêu Linh lắmmm! Đừng bắt nạt Bảo nha! 💜</div>
-                <!-- Kuromi: fallback là ác quỷ dễ thương 😈 -->
                 <img src="kuromi.png" alt="Kuromi" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>😈</div>'">
             </div>
             
             <div class="sanrio-item" onclick="createHearts(event)">
                 <div class="chat-bubble">Gâu gâu! Hai anh chị đi ăn bánh pudding với em không? 🍮</div>
-                <!-- Pompompurin: fallback là cún 🐶 -->
                 <img src="purin.png" alt="Purin" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🐶</div>'">
             </div>
         </section>
 
-        <!-- GÓC GUITAR -->
-        <section class="cute-panel" style="border-style: dashed; max-width: 600px;">
+        <section class="cute-panel reveal" style="border-style: dashed; max-width: 600px;">
             <h2 style="font-family: 'Caveat', cursive; font-size: 3rem;">Góc Tình Ca Của Bảo 🎸</h2>
             <p>Bảo đã luyện tập rất chăm chỉ đó, Linh bật lên nghe nhé! 🥰</p>
             <audio controls style="width: 100%; border-radius: 50px; outline: none; margin-top: 15px;">
@@ -283,15 +389,35 @@
             </audio>
         </section>
 
-        <section class="love-letter">
+        <section class="love-letter reveal">
             <p><strong>To: Linh (Bún Bò) siêu cấp đáng yêu của Bảo,</strong></p>
             <p>Bắt đầu từ ngày 9/5 định mệnh đó, thời gian của Bảo như được tính bằng những nụ cười. Nhìn con số đếm ngày đếm tháng trên kia cứ tăng lên, Bảo chỉ muốn thế giới này mãi màu hồng và ngọt ngào như kẹo vậy.</p>
-            <p>Cảm ơn Linh vì đã bước vào cuộc sống của Bảo. Bài hát đang phát Bảo đã gửi gắm hết tâm tư vào đó rồi đấy! Hãy để "Trân Châu" này tiếp tục nắm tay "Bún Bò" vượt qua thêm nhiều nhiều tháng, nhiều nhiều năm nữa nhé. Mình sẽ in thêm thật nhiều ảnh để treo lên sợi dây kỷ niệm kia!</p>
+            <p>Cảm ơn Linh vì đã bước vào cuộc sống của Bảo. Bài hát đang phát Bảo đã gửi gắm hết tâm tư vào đó rồi đấy! Hãy để "Trân Châu" này tiếp tục nắm tay "Bún Bò" vượt qua thêm nhiều nhiều tháng, nhiều nhiều năm nữa nhé. Cuốn album phía trên chắc chắn sẽ còn phải in thêm dài dài!</p>
             <div class="signature">Mãi yêu Linh, Bảo 💕</div>
         </section>
     </div>
 
     <script>
+        // --- HIỆU ỨNG SCROLL REVEAL (Lướt đến đâu hiện đến đó) ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.15 // 15% diện tích element xuất hiện thì kích hoạt
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+
         // --- TẠO MÂY NỀN TRÔI LƠ LỬNG ---
         const cloudsContainer = document.getElementById('clouds-container');
         for(let i = 0; i < 8; i++) {
@@ -358,6 +484,68 @@
             }
         }
         setInterval(updateTimer, 1000); updateTimer();
+
+        // --- ĐỘ ĐO TÌNH YÊU (CẢI TIẾN) ---
+        let meterProgress = 0;
+        let isShattered = false;
+        function startLoveMeter() {
+            if (isShattered) return;
+            const btn = document.getElementById('meter-btn');
+            const fill = document.getElementById('meter-fill');
+            const status = document.getElementById('meter-status');
+            const container = document.getElementById('meter-container');
+            const overlay = document.getElementById('shatter-overlay');
+            
+            btn.disabled = true;
+            btn.innerText = "Đang đo... 💓";
+            
+            // Tăng dần lên 100%
+            let interval = setInterval(() => {
+                meterProgress += 1;
+                fill.style.width = meterProgress + '%';
+                status.innerText = "Đang đo... " + meterProgress + "%";
+                
+                if (meterProgress >= 100) {
+                    clearInterval(interval);
+                    status.innerHTML = "<span class='overcharge-text'>CẢNH BÁO: TÌNH YÊU QUÁ TẢI!</span>";
+                    container.classList.add('overcharged');
+                    
+                    // Tiếp tục tăng lố lên 100%
+                    setTimeout(() => {
+                        let overchargeInterval = setInterval(() => {
+                            meterProgress += 2; // Tăng nhanh hơn
+                            // Không giới hạn width ở 100% nữa
+                            fill.style.width = meterProgress + '%';
+                            
+                            if (meterProgress >= 120) { // Đạt mốc vỡ
+                                clearInterval(overchargeInterval);
+                                shatterLove();
+                            }
+                        }, 50);
+                    }, 1000);
+                }
+            }, 50);
+        }
+
+        function shatterLove() {
+            isShattered = true;
+            const status = document.getElementById('meter-status');
+            const container = document.getElementById('meter-container');
+            const overlay = document.getElementById('shatter-overlay');
+            const btn = document.getElementById('meter-btn');
+            
+            container.classList.remove('overcharged');
+            overlay.classList.add('shattered');
+            
+            setTimeout(() => {
+                container.classList.add('exploded');
+                status.innerHTML = "BÙMM! Tình yêu vỡ òa... vì Bảo yêu Linh quá nhiềuuu! 💖✨💥";
+                btn.innerText = "TÌNH YÊU VÔ CỰC! 💕";
+                
+                // Nổ pháo hoa lớn
+                createExplosion(window.innerWidth/2, window.innerHeight/2, 100, ['💖', '✨', '💥', '🥰', '🌹']);
+            }, 500);
+        }
 
         // --- VÒNG QUAY HẸN HÒ ---
         const dateIdeas = [
