@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1 Month Anniversary 💕</title>
+    <title>Bảo ❤️ Linh | Thế Giới Kẹo Ngọt</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@600;800;900&family=Mali:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,6 +18,12 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* THANH CUỘN CUTE (SCROLLBAR) */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #ffe4e8; }
+        ::-webkit-scrollbar-thumb { background: var(--pink-main); border-radius: 10px; border: 3px solid #ffe4e8; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--pink-dark); }
+
         body {
             font-family: 'Nunito', sans-serif;
             background: var(--bg-gradient);
@@ -27,23 +33,16 @@
             cursor: pointer;
         }
 
-        /* --- HIỆU ỨNG LƯỚT HIỆN DẦN (SCROLL REVEAL) --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* --- HIỆU ỨNG LƯỚT HIỆN DẦN --- */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- CLOUDS BACKGROUND --- */
         .clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .cloud { position: absolute; font-size: 4rem; opacity: 0.7; animation: floatCloud linear infinite; filter: drop-shadow(0 10px 10px rgba(255,255,255,0.8)); }
         @keyframes floatCloud { 0% { transform: translateX(-100%) translateY(0); } 50% { transform: translateX(50vw) translateY(-20px); } 100% { transform: translateX(120vw) translateY(0); } }
 
-        /* --- MÀN HÌNH KHÓA --- */
+        /* --- MÀN HÌNH KHÓA: NHẬT KÝ SIÊU CUTE --- */
         #login-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(255, 194, 209, 0.85); backdrop-filter: blur(15px);
@@ -51,28 +50,40 @@
             z-index: 999999; transition: all 1s ease;
         }
         .diary-box {
-            background: #fff; width: 350px; padding: 40px 30px; border-radius: 15px 30px 30px 15px;
-            box-shadow: 15px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 20px rgba(251, 111, 146, 0.2);
-            text-align: center; position: relative; border-left: 20px solid var(--pink-dark);
-            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #fff; width: 360px; padding: 45px 30px; border-radius: 20px 35px 35px 20px;
+            box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2), 0 0 30px rgba(255, 255, 255, 0.8);
+            text-align: center; position: relative; border-left: 22px solid var(--pink-dark);
+            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), pulseGlow 3s infinite alternate;
         }
+        /* Nơ ruy băng siêu xinh trên đầu nhật ký */
+        .diary-box::before {
+            content: '🎀'; font-size: 4rem; position: absolute; top: -35px; left: 50%;
+            transform: translateX(-50%); z-index: 10; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+            animation: swingRibbon 3s infinite ease-in-out;
+        }
+        @keyframes swingRibbon { 0%, 100% { transform: translateX(-50%) rotate(-5deg); } 50% { transform: translateX(-50%) rotate(5deg); } }
+        @keyframes pulseGlow { 0% { box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2), 0 0 10px rgba(255, 143, 171, 0.5); } 100% { box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2), 0 0 30px rgba(255, 143, 171, 0.9); } }
         @keyframes bounceIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-        .lock-icon { font-size: 3.5rem; margin-bottom: 10px; animation: swingLock 2s infinite ease-in-out; display: inline-block; transform-origin: top center; }
-        @keyframes swingLock { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-        .diary-box h2 { font-family: 'Mali', cursive; font-size: 2rem; color: var(--pink-dark); margin-bottom: 5px; }
-        .diary-box p { font-size: 1rem; color: var(--purple-dark); font-weight: 800; margin-bottom: 25px; }
+        
+        .lock-icon { font-size: 4rem; margin-bottom: 5px; animation: swingLock 2s infinite ease-in-out; display: inline-block; transform-origin: top center; filter: drop-shadow(0 5px 5px rgba(251, 111, 146, 0.5)); }
+        @keyframes swingLock { 0%, 100% { transform: rotate(-10deg) scale(1); } 50% { transform: rotate(10deg) scale(1.1); } }
+        .diary-box h2 { font-family: 'Mali', cursive; font-size: 2.2rem; color: var(--pink-dark); margin-bottom: 5px; }
+        .diary-box p { font-size: 1.05rem; color: var(--purple-dark); font-weight: 800; margin-bottom: 25px; line-height: 1.4; }
+        
         .password-input {
-            width: 90%; padding: 15px; border: 3px dashed var(--pink-main); border-radius: 15px;
-            font-size: 1.8rem; text-align: center; letter-spacing: 10px; outline: none; background: #fff9fa;
+            width: 90%; padding: 15px; border: 3px solid #ffe4e8; border-radius: 18px;
+            font-size: 1.8rem; text-align: center; letter-spacing: 12px; outline: none; background: #fffcfd;
             color: var(--pink-dark); font-family: 'Nunito', sans-serif; font-weight: 900; transition: 0.3s; margin-bottom: 20px;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
         }
-        .password-input:focus { border-style: solid; box-shadow: 0 0 20px rgba(251, 111, 146, 0.4); transform: scale(1.05); }
+        .password-input:focus { border-color: var(--pink-main); box-shadow: 0 0 20px rgba(251, 111, 146, 0.4), inset 0 3px 6px rgba(0,0,0,0.02); transform: scale(1.05); }
+        
         .unlock-btn {
-            background: var(--pink-dark); color: white; border: none; padding: 15px 30px; border-radius: 30px;
-            font-size: 1.1rem; font-family: 'Mali', cursive; font-weight: 700; cursor: pointer;
-            box-shadow: 0 8px 15px rgba(251, 111, 146, 0.4); transition: 0.3s; width: 90%;
+            background: linear-gradient(45deg, var(--pink-dark), var(--pink-main)); color: white; border: none; padding: 15px 30px; border-radius: 30px;
+            font-size: 1.2rem; font-family: 'Mali', cursive; font-weight: 800; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 8px 15px rgba(251, 111, 146, 0.4); transition: 0.3s; width: 90%; border: 2px solid #fff;
         }
-        .unlock-btn:hover { transform: translateY(-5px); background: var(--pink-main); box-shadow: 0 12px 20px rgba(251, 111, 146, 0.6); }
+        .unlock-btn:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 15px 25px rgba(251, 111, 146, 0.6); }
         .error-msg { color: #d90429; font-size: 0.95rem; margin-top: 15px; font-weight: 800; opacity: 0; }
         .shake { animation: shake 0.5s both; }
         @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
@@ -115,13 +126,11 @@
         .scrapbook-desc { font-weight: 800; color: var(--purple-dark); margin-bottom: 40px; font-size: 1.2rem; }
         
         .scrapbook-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 20px; }
-        
         .scrapbook-card {
             background: #fff; padding: 15px 15px 50px 15px; border-radius: 8px;
             box-shadow: 5px 15px 30px rgba(94, 84, 142, 0.15); width: 260px; position: relative;
             transition: all 0.4s ease; border: 1px solid #ffe4e8; cursor: pointer;
         }
-        
         .scrapbook-card img { width: 100%; height: 260px; object-fit: cover; border-radius: 5px; }
         .scrapbook-card .caption { font-family: 'Dancing Script', cursive; font-size: 2.2rem; text-align: center; margin-top: 15px; color: var(--pink-dark); font-weight: bold; }
         
@@ -138,36 +147,33 @@
         .scrapbook-card:nth-child(3n) { transform: rotate(5deg); }
         .scrapbook-card:nth-child(4n) { transform: rotate(-2deg); }
 
-        .scrapbook-card:hover {
-            transform: scale(1.1) rotate(0deg) translateY(-10px) !important;
-            box-shadow: 5px 25px 40px rgba(251, 111, 146, 0.4); z-index: 10; border-color: var(--pink-main);
-        }
-
+        .scrapbook-card:hover { transform: scale(1.1) rotate(0deg) translateY(-10px) !important; box-shadow: 5px 25px 40px rgba(251, 111, 146, 0.4); z-index: 10; border-color: var(--pink-main); }
         .cute-sticker { position: absolute; bottom: 15px; right: 15px; font-size: 1.8rem; transform: rotate(-15deg); filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2)); }
 
-        /* --- NƯỚC DÂNG TRÀN MÀN HÌNH (LOVE FLOOD) --- */
-        #love-flood {
-            position: fixed; bottom: 0; left: 0; width: 100vw; height: 0vh;
-            background: linear-gradient(to top, rgba(201, 24, 74, 0.95), rgba(251, 111, 146, 0.8));
-            backdrop-filter: blur(5px); z-index: 99990; transition: height 0.1s linear, opacity 0.5s ease;
-            pointer-events: none; border-top: 5px solid rgba(255,255,255,0.5);
-            box-shadow: 0 -20px 50px rgba(251, 111, 146, 0.8);
+        /* --- IDEA THAY THẾ: PHIẾU ĐẶC QUYỀN (LOVE COUPONS) --- */
+        .coupons-section { max-width: 700px; padding: 50px 30px; }
+        .coupon-container { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; margin-top: 30px;}
+        
+        .coupon {
+            display: flex; width: 100%; max-width: 500px; background: #fff; border-radius: 20px; 
+            box-shadow: 0 8px 20px rgba(251, 111, 146, 0.2); overflow: hidden; cursor: pointer; 
+            transition: 0.3s; border: 3px dashed var(--pink-main); position: relative;
         }
-
-        /* --- ĐỘ ĐO TÌNH YÊU --- */
-        .love-meter-section { text-align: center; padding: 50px; max-width: 800px; margin-bottom: 100px; width: 90%; position: relative; z-index: 99991; }
-        .love-meter-section h2 { font-family: 'Mali', cursive; font-size: 3rem; color: var(--pink-dark); margin-bottom: 20px; }
+        .coupon:hover { transform: scale(1.05) rotate(-2deg); box-shadow: 0 15px 30px rgba(251, 111, 146, 0.4); }
+        .coupon-left { background: linear-gradient(135deg, var(--pink-main), var(--pink-dark)); color: #fff; padding: 25px 20px; font-weight: 900; font-family: 'Mali', cursive; font-size: 1.2rem; display: flex; align-items: center; border-right: 3px dashed #fff; text-align: center; }
+        .coupon-right { padding: 20px; flex: 1; color: var(--purple-dark); font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
         
-        .meter-container { position: relative; width: 100%; height: 60px; background: #fff; border-radius: 50px; border: 5px solid var(--purple-light); overflow: hidden; margin-bottom: 30px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.1); }
-        .meter-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); border-radius: 50px; transition: width 0.1s ease-out; }
-        
-        .meter-btn { background: var(--pink-dark); color: white; padding: 15px 40px; font-size: 1.5rem; font-family: 'Mali', cursive; border-radius: 50px; border: 4px solid #fff; font-weight: 900; cursor: pointer; box-shadow: 0 10px 20px rgba(201, 24, 74, 0.4); transition: 0.2s; }
-        .meter-btn:hover { background: var(--pink-main); transform: translateY(-3px); }
-        .meter-btn:active { transform: translateY(2px) scale(0.98); }
+        .coupon.used { opacity: 0.6; filter: grayscale(0.5); pointer-events: none; transform: scale(0.95); }
+        .coupon.used::after {
+            content: 'ĐÃ SỬ DỤNG ✔️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
+            background: rgba(255,255,255,0.95); padding: 10px 20px; border: 4px solid #d90429; color: #d90429;
+            font-family: 'Mali', cursive; font-weight: 900; font-size: 1.8rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: stampIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes stampIn { 0% { transform: translate(-50%, -50%) rotate(-15deg) scale(3); opacity: 0; } 100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); opacity: 1; } }
 
-        .meter-status { font-family: 'Mali', cursive; font-size: 1.6rem; font-weight: 900; color: var(--pink-dark); margin-top: 20px; min-height: 40px; text-shadow: 2px 2px 5px rgba(255,255,255,0.8); }
 
-        /* --- MINIGAME CHUYỂN GIAO QUÀ (THAY VÒNG QUAY) --- */
+        /* --- MINIGAME CHUYỂN GIAO QUÀ THẬT --- */
         .minigame-section { position: relative; overflow: hidden; }
         .game-area { position: relative; width: 100%; height: 250px; background: rgba(255, 228, 232, 0.5); border-radius: 20px; border: 3px dashed var(--pink-main); margin-bottom: 20px; }
         .moving-heart { position: absolute; font-size: 3rem; cursor: pointer; user-select: none; transition: top 0.4s ease, left 0.4s ease; filter: drop-shadow(0 5px 10px rgba(251, 111, 146, 0.5)); transform: translate(-50%, -50%); }
@@ -189,14 +195,12 @@
         .sanrio-squad { display: flex; flex-wrap: wrap; justify-content: center; gap: 45px; padding: 50px; max-width: 950px; border-radius: 60px; }
         .sanrio-item { position: relative; text-align: center; }
         .sanrio-img { width: 110px; height: 110px; object-fit: contain; transition: 0.3s; animation: float 3s ease-in-out infinite; cursor: pointer; filter: drop-shadow(0 10px 15px rgba(224, 177, 203, 0.8)); }
-        
         .emoji-fallback {
             width: 100px; height: 100px; background: #fff; border: 4px solid var(--pink-main);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             font-size: 3.5rem; margin: 0 auto; box-shadow: 0 10px 20px rgba(251, 111, 146, 0.3);
             animation: float 3s ease-in-out infinite; cursor: pointer;
         }
-        
         .sanrio-item:nth-child(even) .sanrio-img, .sanrio-item:nth-child(even) .emoji-fallback { animation-delay: 1.5s; }
         .sanrio-item:nth-child(3n) .sanrio-img, .sanrio-item:nth-child(3n) .emoji-fallback { animation-delay: 0.7s; }
         .sanrio-img:hover, .emoji-fallback:hover { transform: scale(1.3) translateY(-15px); animation-play-state: paused; }
@@ -228,28 +232,27 @@
 </head>
 <body>
 
-    <div id="love-flood"></div>
     <div class="clouds" id="clouds-container"></div>
 
     <div id="login-screen">
         <div class="diary-box">
             <div class="lock-icon">🔒</div>
             <h2>Nhật Ký Của Trân Châu</h2>
-            <p>Nhập mật khẩu để mở khóa xem chòn thúiiii viết gì nhóoo</p>
+            <p>Nhập mật khẩu để mở khóa xem "chòn thúiiii" giấu gì ở trong nhóoo</p>
             <input type="password" id="pwd-input" class="password-input" placeholder="••••••" maxlength="6">
             <button class="unlock-btn" onclick="checkPassword()">MỞ KHÓA 💖</button>
-            <div id="error-msg" class="error-msg">Mật khẩu sai roàiiiiii! Gợi ý: Ngày sinh của tũn</div>
+            <div id="error-msg" class="error-msg">Mật khẩu sai roàiiiiii! Gợi ý: Ngày sinh của Tũn</div>
         </div>
-    </div>
-
-    <div id="countdown-overlay">
-        <div class="countdown-num" id="cd-num">5</div>
-        <div class="countdown-text" id="cd-text">Nhắm mắt lại và chờ Bảo lấy quà nha...</div>
     </div>
 
     <audio id="bg-music" loop>
         <source src="da-lo-yeu-em-nhieu.mp3" type="audio/mpeg">
     </audio>
+
+    <div id="countdown-overlay">
+        <div class="countdown-num" id="cd-num">5</div>
+        <div class="countdown-text" id="cd-text">Nhắm mắt lại và chờ Bảo lấy quà nha...</div>
+    </div>
 
     <div id="main-content">
         <div id="music-player" onclick="toggleMusic()">
@@ -323,18 +326,9 @@
             </div>
         </div>
 
-        <section class="cute-panel love-meter-section reveal">
-            <h2>Bảo yêu Linh bao nhiuu? </h2>
-            <div class="meter-container" id="meter-container">
-                <div class="meter-fill" id="meter-fill"></div>
-            </div>
-            <button class="meter-btn" id="meter-btn" onclick="startLoveMeter()">Nhấn để Đo Nàoooo 💕</button>
-            <div id="meter-status" class="meter-status">Đang đợi Linh bấm...</div>
-        </section>
-
         <section class="cute-panel minigame-section reveal">
             <h2 style="font-family: 'Caveat', cursive; font-size: 3.5rem;">Thử Thách Nhận Quà! 🎁</h2>
-            <p style="margin-bottom: 20px; font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Bảo có giấu một món quà bí mật ở ngoài đóoo...<br>Linh hãy nhanh tay "Bắt lấy trái tim" 3 lần để mở khóa nha</p>
+            <p style="margin-bottom: 20px; font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Bảo có giấu một món quà bí mật ở ngoài đóoo...<br>Linh hãy nhanh tay "Bắt lấy trái tim" 3 lần để mở khóa nha!</p>
             
             <div id="game-area" class="game-area">
                 <div id="catch-heart" class="moving-heart" onclick="catchHeart(event)" style="top: 50%; left: 50%;">💖</div>
@@ -344,6 +338,26 @@
                 <h3 style="color: var(--pink-dark); font-size: 1.8rem; margin-bottom: 15px;">Tuyệt vờiii! Linh đã bắt được! 🎉</h3>
                 <div class="gift-box" onclick="openRealGift()">🎁</div>
                 <p style="font-weight: 800; color: var(--purple-dark); margin-top: 10px;">(Nhấp vào hộp quà đi Bún Bò)</p>
+            </div>
+        </section>
+
+        <section class="cute-panel coupons-section reveal">
+            <h2 style="font-family: 'Caveat', cursive; font-size: 3.5rem;">Tạp Hóa Đặc Quyền 🎟️</h2>
+            <p style="font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Nhân dịp 1 tháng, Linh được tặng 3 chiếc vé đặc quyền nè! <br>Lúc nào muốn xài thì Linh bấm vào rồi đưa Bảo xem nhá 👇</p>
+            
+            <div class="coupon-container">
+                <div class="coupon" onclick="useCoupon(this, 'Một chầu ăn sập Hà Nội do Bảo bao 🍲')">
+                    <div class="coupon-left">VÉ VIP 1</div>
+                    <div class="coupon-right">Một chầu ăn sập Hà Nội (Bảo trả tiền) 🍲</div>
+                </div>
+                <div class="coupon" onclick="useCoupon(this, 'Một cái ôm sạc đầy năng lượng 🫂')">
+                    <div class="coupon-left">VÉ VIP 2</div>
+                    <div class="coupon-right">Một cái ôm sạc đầy pin cho Linh 🫂</div>
+                </div>
+                <div class="coupon" onclick="useCoupon(this, 'Quyền được dỗi Bảo 1 ngày vô điều kiện 😤')">
+                    <div class="coupon-left">VÉ VIP 3</div>
+                    <div class="coupon-right">Được quyền dỗi Bảo 1 ngày vô điều kiện 😤</div>
+                </div>
             </div>
         </section>
 
@@ -373,21 +387,13 @@
             </div>
         </section>
 
-        <section class="cute-panel reveal" style="border-style: dashed; max-width: 600px;">
-            <h2 style="font-family: 'Caveat', cursive; font-size: 3rem;">Góc Tình Ca Của Bảo 🎸</h2>
-            <p>Bảo đã luyện tập rất chăm chỉ đó, Linh bật lên nghe nhé! 🥰</p>
-            <audio controls style="width: 100%; border-radius: 50px; outline: none; margin-top: 15px;">
-                <source src="tieng-dan-guitar-cua-bao.mp3" type="audio/mpeg">
-            </audio>
-        </section>
-
         <section class="love-letter reveal">
-    <p><strong>Gửi tới Linh (Bún Bòaa) siêu cấp đáng yêu của Bảo,</strong></p>
-    <p>Thế là đã tròn 1 tháng kể từ ngày 9/5 định mệnh ấy rồi Linh nhỉ? Một tháng không phải là quãng thời gian quá dài, nhưng đủ để thế giới của Bảo thay đổi hoàn toàn. Từ lúc có Linh, thời gian của Bảo không còn đo bằng giờ phút nữa, mà được tính bằng những nụ cười. Nhìn con số đếm ngày đếm tháng trên kia cứ từng chút nhích lên, Bảo chỉ ước mình có thể giữ mãi khoảnh khắc này, để thế giới xung quanh lúc nào cũng màu hồng và ngọt ngào như Tũn vậy.</p>
-    <p>Cảm ơn Linh, cảm ơn vì đã bước vào cuộc đời Bảo và làm cho mọi thứ trở nên rực rỡ hơn. Bài hát đang phát lúc này... Linh hãy nghe thật kỹ nhé, vì từng giai điệu, từng câu chữ trong đó đều là tất cả tâm tư mà Bảo muốn gửi đến Linh.</p>
-    <p>Một tháng chỉ là vạch xuất phát thôi. Hãy để "Trân Châu" này được tiếp tục nắm chặt tay "Bún Bò", che chở và cùng nhau đi qua thêm nhiều tháng, nhiều năm nữa nhé. Cuốn album phía trên mới chỉ là những trang đầu tiên thôi, mình sẽ cùng nhau chụp thêm thật nhiều ảnh và in dài thêm nữaaaaaaaaaa nha!</p>
-    <div class="signature">Thương Linh thật nhiều,<br>Bảo của Linh 💕</div>
-</section>
+            <p><strong>Gửi tới Linh (Bún Bòaa) siêu cấp đáng yêu của Bảo,</strong></p>
+            <p>Thế là đã tròn 1 tháng kể từ ngày 9/5 định mệnh ấy rồi Linh nhỉ? Một tháng không phải là quãng thời gian quá dài, nhưng đủ để thế giới của Bảo thay đổi hoàn toàn. Từ lúc có Linh, thời gian của Bảo không còn đo bằng giờ phút nữa, mà được tính bằng những nụ cười. Nhìn con số đếm ngày đếm tháng trên kia cứ từng chút nhích lên, Bảo chỉ ước mình có thể giữ mãi khoảnh khắc này, để thế giới xung quanh lúc nào cũng màu hồng và ngọt ngào như Tũn vậy.</p>
+            <p>Cảm ơn Linh, cảm ơn vì đã bước vào cuộc đời Bảo và làm cho mọi thứ trở nên rực rỡ hơn. Bài hát đang phát lúc này... Linh hãy nghe thật kỹ nhé, vì từng giai điệu, từng câu chữ trong đó đều là tất cả tâm tư mà Bảo muốn gửi đến Linh.</p>
+            <p>Một tháng chỉ là vạch xuất phát thôi. Hãy để "Trân Châu" này được tiếp tục nắm chặt tay "Bún Bò", che chở và cùng nhau đi qua thêm nhiều tháng, nhiều năm nữa nhé. Cuốn album phía trên mới chỉ là những trang đầu tiên thôi, mình sẽ cùng nhau chụp thêm thật nhiều ảnh và in dài thêm nữaaaaaaaaaa nha!</p>
+            <div class="signature">Thương Linh thật nhiều,<br>Bảo của Linh 💕</div>
+        </section>
     </div>
 
     <script>
@@ -464,57 +470,12 @@
         }
         setInterval(updateTimer, 1000); updateTimer();
 
-        // --- ĐỘ ĐO TÌNH YÊU NƯỚC TRÀN MÀN HÌNH ---
-        let loveMeterProgress = 0;
-        let meterInterval;
-        let isShattered = false;
-
-        function startLoveMeter() {
-            if (isShattered) return;
-            const btn = document.getElementById('meter-btn');
-            const fill = document.getElementById('meter-fill');
-            const status = document.getElementById('meter-status');
-            const flood = document.getElementById('love-flood');
-            
-            btn.disabled = true;
-            btn.innerText = "Đang đo nha... 💓";
-            
-            meterInterval = setInterval(() => {
-                loveMeterProgress += 1;
-                
-                if(loveMeterProgress <= 100) {
-                    fill.style.width = loveMeterProgress + '%';
-                    status.innerText = "Đang phân tích dữ liệu... " + loveMeterProgress + "%";
-                } 
-                else if (loveMeterProgress <= 200) {
-                    status.innerHTML = "CẢNH BÁO: TÌNH YÊU QUÁ TẢI NƯỚC TRÀN RA NGOÀI RỒI!!! 🌊💕";
-                    status.style.color = '#c9184a';
-                    let floodHeight = loveMeterProgress - 100; // Dâng từ 0vh đến 100vh
-                    flood.style.height = floodHeight + 'vh';
-                } 
-                else {
-                    // Mốc nổ tung (Vượt 200)
-                    clearInterval(meterInterval);
-                    isShattered = true;
-                    
-                    flood.style.background = "#fff"; // Chớp sáng
-                    setTimeout(() => { flood.style.opacity = "0"; }, 200); // Rút nước
-                    
-                    status.innerHTML = "BÙMM! Trái tim Bảo đã nổ tung vì yêu Linh quá nhiềuuu! 💖✨💥";
-                    btn.innerText = "TÌNH YÊU VÔ CỰC! 💕";
-                    
-                    megaExplosion();
-                }
-            }, 60); // Tốc độ chạy thanh
-        }
-
         // --- MINIGAME: BẮT LẤY TRÁI TIM ---
         let catchCount = 0;
         let heartInterval;
         
         function moveHeart() {
             const heart = document.getElementById('catch-heart');
-            // Random vị trí từ 10% đến 90% diện tích hộp
             heart.style.left = (Math.random() * 80 + 10) + '%';
             heart.style.top = (Math.random() * 80 + 10) + '%';
         }
@@ -525,13 +486,12 @@
             createExplosion(e.clientX, e.clientY, 10, ['✨', '💖']);
             
             if(catchCount >= 3) {
-                // Thắng game
                 clearInterval(heartInterval);
                 document.getElementById('catch-heart').style.display = 'none';
                 document.getElementById('game-area').style.display = 'none';
                 document.getElementById('game-reward').style.display = 'block';
             } else {
-                moveHeart(); // Di chuyển ngay lập tức tránh bị bấm liên tiếp
+                moveHeart(); 
             }
         }
 
@@ -566,6 +526,22 @@
             }, 1000);
         }
 
+        // --- JS CHO TẠP HÓA TÌNH YÊU (COUPON) ---
+        function useCoupon(element, text) {
+            if(element.classList.contains('used')) return;
+            
+            // Nổ pháo hoa tại vị trí coupon
+            const rect = element.getBoundingClientRect();
+            createExplosion(rect.left + rect.width/2, rect.top + rect.height/2, 25, ['🎟️', '💖', '✨', '🎉']);
+            
+            // Đánh dấu đã dùng
+            element.classList.add('used');
+            
+            setTimeout(() => {
+                alert(`Ting ting! Bảo đã nhận được yêu cầu: "${text}".\nLinh nhớ đòi nha! 😘`);
+            }, 500);
+        }
+
         // --- TẠO HIỆU ỨNG NỔ HOÀNH TRÁNG ---
         function megaExplosion() {
             let times = 0;
@@ -598,7 +574,7 @@
         }
 
         document.addEventListener('click', e => { 
-            if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && !e.target.classList.contains('sanrio-img') && !e.target.classList.contains('emoji-fallback')) {
+            if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && !e.target.classList.contains('sanrio-img') && !e.target.classList.contains('emoji-fallback') && !e.target.closest('.coupon')) {
                 createExplosion(e.clientX, e.clientY, 5, ['✨', '💖']); 
             }
         });
