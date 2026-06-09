@@ -18,31 +18,38 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* THANH CUỘN CUTE (SCROLLBAR) */
+        /* THANH CUỘN CUTE */
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: #ffe4e8; }
         ::-webkit-scrollbar-thumb { background: var(--pink-main); border-radius: 10px; border: 3px solid #ffe4e8; }
         ::-webkit-scrollbar-thumb:hover { background: var(--pink-dark); }
 
+        /* CON TRỎ CHUỘT TRÁI TIM */
         body {
             font-family: 'Nunito', sans-serif;
             background: var(--bg-gradient);
             background-attachment: fixed;
             color: var(--text-dark);
             overflow-x: hidden;
-            cursor: pointer;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ff8fab" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') 12 12, auto;
+        }
+        
+        a, button, .sanrio-img, .gift-box, .moving-heart, .coupon, .photo-card, .jar-icon, input, .peek-bear {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="%23fb6f92" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') 14 14, pointer !important;
         }
 
         /* --- HIỆU ỨNG LƯỚT HIỆN DẦN --- */
         .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- CLOUDS BACKGROUND --- */
+        /* --- MÂY & SAKURA --- */
         .clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .cloud { position: absolute; font-size: 4rem; opacity: 0.7; animation: floatCloud linear infinite; filter: drop-shadow(0 10px 10px rgba(255,255,255,0.8)); }
+        .cloud { position: absolute; font-size: 4rem; opacity: 0.6; animation: floatCloud linear infinite; filter: drop-shadow(0 10px 10px rgba(255,255,255,0.8)); }
         @keyframes floatCloud { 0% { transform: translateX(-100%) translateY(0); } 50% { transform: translateX(50vw) translateY(-20px); } 100% { transform: translateX(120vw) translateY(0); } }
+        
+        #sakura-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
 
-        /* --- MÀN HÌNH KHÓA: NHẬT KÝ SIÊU CUTE --- */
+        /* --- MÀN HÌNH KHÓA & GẤU CANH CỬA --- */
         #login-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(255, 194, 209, 0.85); backdrop-filter: blur(15px);
@@ -53,20 +60,33 @@
             background: #fff; width: 360px; padding: 45px 30px; border-radius: 20px 35px 35px 20px;
             box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2), 0 0 30px rgba(255, 255, 255, 0.8);
             text-align: center; position: relative; border-left: 22px solid var(--pink-dark);
-            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), pulseGlow 3s infinite alternate;
+            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), diaryFloat 4s ease-in-out infinite;
         }
-        /* Nơ ruy băng siêu xinh trên đầu nhật ký */
-        .diary-box::before {
-            content: '🎀'; font-size: 4rem; position: absolute; top: -35px; left: 50%;
-            transform: translateX(-50%); z-index: 10; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
-            animation: swingRibbon 3s infinite ease-in-out;
-        }
+        @keyframes diaryFloat { 0%, 100% { transform: translateY(0px); box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2); } 50% { transform: translateY(-10px); box-shadow: 10px 25px 50px rgba(94, 84, 142, 0.2), inset 15px 0 25px rgba(251, 111, 146, 0.2); } }
+        
+        .diary-box::before { content: '🎀'; font-size: 4rem; position: absolute; top: -35px; left: 50%; transform: translateX(-50%); z-index: 10; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2)); animation: swingRibbon 3s infinite ease-in-out; }
         @keyframes swingRibbon { 0%, 100% { transform: translateX(-50%) rotate(-5deg); } 50% { transform: translateX(-50%) rotate(5deg); } }
-        @keyframes pulseGlow { 0% { box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2), 0 0 10px rgba(255, 143, 171, 0.5); } 100% { box-shadow: 10px 15px 40px rgba(94, 84, 142, 0.3), inset 15px 0 25px rgba(251, 111, 146, 0.2), 0 0 30px rgba(255, 143, 171, 0.9); } }
         @keyframes bounceIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
         
+        /* Gấu canh cửa */
+        .peek-bear { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); font-size: 3.5rem; z-index: 15; transition: 0.3s; animation: peekUp 4s infinite alternate; }
+        @keyframes peekUp { 0%, 60% { transform: translate(-50%, 20px); } 80%, 100% { transform: translate(-50%, -15px); } }
+        .peek-bear:hover { transform: translateX(-50%) scale(1.1); animation-play-state: paused; }
+        
+        /* Khung chat của Gấu */
+        .bear-chat {
+            position: absolute; top: -100px; left: 50%; transform: translateX(-50%) scale(0);
+            background: #fff; padding: 12px 20px; border-radius: 20px; border: 3px solid var(--pink-main);
+            color: var(--pink-dark); font-weight: 900; font-family: 'Nunito', sans-serif;
+            box-shadow: 0 10px 25px rgba(251, 111, 146, 0.3); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0; pointer-events: none; z-index: 20; white-space: nowrap; font-size: 1.1rem;
+        }
+        .bear-chat.show { transform: translateX(-50%) scale(1); opacity: 1; }
+        .bear-chat::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: var(--pink-main) transparent transparent transparent; }
+
         .lock-icon { font-size: 4rem; margin-bottom: 5px; animation: swingLock 2s infinite ease-in-out; display: inline-block; transform-origin: top center; filter: drop-shadow(0 5px 5px rgba(251, 111, 146, 0.5)); }
         @keyframes swingLock { 0%, 100% { transform: rotate(-10deg) scale(1); } 50% { transform: rotate(10deg) scale(1.1); } }
+        
         .diary-box h2 { font-family: 'Mali', cursive; font-size: 2.2rem; color: var(--pink-dark); margin-bottom: 5px; }
         .diary-box p { font-size: 1.05rem; color: var(--purple-dark); font-weight: 800; margin-bottom: 25px; line-height: 1.4; }
         
@@ -80,16 +100,20 @@
         
         .unlock-btn {
             background: linear-gradient(45deg, var(--pink-dark), var(--pink-main)); color: white; border: none; padding: 15px 30px; border-radius: 30px;
-            font-size: 1.2rem; font-family: 'Mali', cursive; font-weight: 800; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 8px 15px rgba(251, 111, 146, 0.4); transition: 0.3s; width: 90%; border: 2px solid #fff;
+            font-size: 1.2rem; font-family: 'Mali', cursive; font-weight: 800; transition: 0.3s; width: 90%; border: 2px solid #fff;
+            box-shadow: 0 8px 15px rgba(251, 111, 146, 0.4); text-transform: uppercase;
         }
         .unlock-btn:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 15px 25px rgba(251, 111, 146, 0.6); }
-        .error-msg { color: #d90429; font-size: 0.95rem; margin-top: 15px; font-weight: 800; opacity: 0; }
+        
+        .hint-btn { background: none; border: none; color: var(--pink-dark); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem; margin-top: 15px; text-decoration: underline; transition: 0.2s;}
+        .hint-btn:hover { color: var(--purple-dark); }
+        
+        .error-msg { color: #d90429; font-size: 0.95rem; margin-top: 10px; font-weight: 800; opacity: 0; transition: 0.3s; }
         .shake { animation: shake 0.5s both; }
         @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
 
         /* --- NỘI DUNG CHÍNH --- */
-        #main-content { display: none; width: 100%; flex-direction: column; align-items: center; opacity: 0; transition: opacity 1.5s ease; padding-bottom: 100px; }
+        #main-content { display: none; width: 100%; flex-direction: column; align-items: center; opacity: 0; transition: opacity 1.5s ease; padding-bottom: 50px; }
 
         .cute-panel {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
@@ -100,45 +124,47 @@
 
         /* --- TRÌNH PHÁT NHẠC --- */
         #music-player {
-            position: fixed; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.95);
+            position: fixed; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.95);
             padding: 8px 20px; border-radius: 50px; box-shadow: 0 5px 20px rgba(224, 177, 203, 0.6);
             display: flex; align-items: center; gap: 12px; z-index: 1000; border: 3px solid var(--white); transition: 0.3s;
         }
-        #music-player:hover { transform: scale(1.08) rotate(2deg); }
+        #music-player:hover { transform: scale(1.08) rotate(-2deg); }
         .vinyl { width: 35px; height: 35px; background: #333; border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: spin 3s linear infinite; animation-play-state: paused; border: 2px solid #fff; }
         .vinyl::after { content: ''; width: 12px; height: 12px; background: var(--pink-main); border-radius: 50%; }
         .vinyl.playing { animation-play-state: running; }
 
-        /* --- HEADER & TIMER --- */
-        header { margin-top: 15vh; text-align: center; margin-bottom: 50px; }
-        h1 { font-family: 'Dancing Script', cursive; font-size: 6rem; color: var(--pink-dark); text-shadow: 4px 4px 0px #fff, 0 0 20px rgba(255, 255, 255, 0.8); margin-bottom: 15px; }
-        .subtitle { font-family: 'Mali', cursive; font-size: 1.5rem; font-weight: 800; background: var(--white); color: var(--pink-dark); padding: 12px 35px; border-radius: 50px; display: inline-block; box-shadow: 0 10px 25px rgba(251, 111, 146, 0.3); border: 3px dashed var(--pink-main); }
-        .timer-container { display: flex; gap: 20px; justify-content: center; margin-top: 50px; }
-        .time-box { width: 95px; height: 95px; background: var(--white); border-radius: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 15px 25px rgba(224, 177, 203, 0.6); border: 3px solid var(--pink-main); transform: rotate(-5deg); transition: 0.3s; }
-        .time-box:nth-child(even) { transform: rotate(5deg); border-color: var(--purple-light); }
-        .time-box:hover { transform: scale(1.2) rotate(0deg); z-index: 10; }
-        .time-box span { font-size: 2.5rem; font-weight: 900; color: var(--pink-dark); line-height: 1; }
-        .time-box p { font-size: 0.8rem; font-weight: 900; color: var(--purple-dark); margin-top: 5px; }
+        /* --- NÚT SOS --- */
+        .sos-btn {
+            position: fixed; bottom: 30px; right: 20px; background: var(--white);
+            color: var(--pink-dark); padding: 12px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(224, 177, 203, 0.6); z-index: 1000;
+            border: 3px dashed var(--pink-main); transition: 0.3s; font-family: 'Mali', cursive;
+        }
+        .sos-btn:hover { transform: scale(1.1) translateY(-5px); background: var(--pink-main); color: #fff; border-style: solid; }
 
+        /* --- HEADER & TIMER --- */
+        header { margin-top: 15vh; text-align: center; margin-bottom: 50px; width: 100%;}
+        h1 { font-family: 'Dancing Script', cursive; font-size: 5rem; color: var(--pink-dark); text-shadow: 4px 4px 0px #fff, 0 0 20px rgba(255, 255, 255, 0.8); margin-bottom: 15px; }
+        .subtitle { font-family: 'Mali', cursive; font-size: 1.5rem; font-weight: 800; background: var(--white); color: var(--pink-dark); padding: 12px 35px; border-radius: 50px; display: inline-block; box-shadow: 0 10px 25px rgba(251, 111, 146, 0.3); border: 3px dashed var(--pink-main); }
+        .timer-container { display: flex; gap: 15px; justify-content: center; margin-top: 50px; flex-wrap: wrap; }
+        .time-box { width: 85px; height: 85px; background: var(--white); border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(224, 177, 203, 0.6); border: 3px solid var(--pink-main); transform: rotate(-5deg); transition: 0.3s; animation: heartbeat 2s infinite; }
+        .time-box:nth-child(even) { transform: rotate(5deg); border-color: var(--purple-light); animation-delay: 0.5s; }
+        .time-box:hover { transform: scale(1.2) rotate(0deg); z-index: 10; animation-play-state: paused; }
+        .time-box span { font-size: 2.2rem; font-weight: 900; color: var(--pink-dark); line-height: 1; }
+        .time-box p { font-size: 0.75rem; font-weight: 900; color: var(--purple-dark); margin-top: 5px; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1) rotate(-5deg); } 10% { transform: scale(1.05) rotate(-5deg); } 20% { transform: scale(1) rotate(-5deg); } }
+        
         /* --- ALBUM SCRAPBOOK 8 ẢNH --- */
         .scrapbook-wrapper { width: 100%; max-width: 1200px; margin: 50px auto 100px; text-align: center; }
-        .scrapbook-title { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--pink-dark); text-shadow: 3px 3px 0px #fff; margin-bottom: 10px; }
-        .scrapbook-desc { font-weight: 800; color: var(--purple-dark); margin-bottom: 40px; font-size: 1.2rem; }
+        .scrapbook-title { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--pink-dark); text-shadow: 3px 3px 0px #fff; margin-bottom: 10px; }
+        .scrapbook-desc { font-weight: 800; color: var(--purple-dark); margin-bottom: 40px; font-size: 1.1rem; padding: 0 20px;}
         
-        .scrapbook-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 20px; }
-        .scrapbook-card {
-            background: #fff; padding: 15px 15px 50px 15px; border-radius: 8px;
-            box-shadow: 5px 15px 30px rgba(94, 84, 142, 0.15); width: 260px; position: relative;
-            transition: all 0.4s ease; border: 1px solid #ffe4e8; cursor: pointer;
-        }
-        .scrapbook-card img { width: 100%; height: 260px; object-fit: cover; border-radius: 5px; }
-        .scrapbook-card .caption { font-family: 'Dancing Script', cursive; font-size: 2.2rem; text-align: center; margin-top: 15px; color: var(--pink-dark); font-weight: bold; }
+        .scrapbook-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 20px; }
+        .scrapbook-card { background: #fff; padding: 12px 12px 40px 12px; border-radius: 8px; box-shadow: 5px 15px 30px rgba(94, 84, 142, 0.15); width: 250px; position: relative; transition: all 0.4s ease; border: 1px solid #ffe4e8; cursor: pointer; }
+        .scrapbook-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
+        .scrapbook-card .caption { font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-align: center; margin-top: 15px; color: var(--pink-dark); font-weight: bold; }
         
-        .washi-tape {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg);
-            width: 110px; height: 35px; background-color: rgba(255, 143, 171, 0.8);
-            backdrop-filter: blur(5px); z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 2px;
-        }
+        .washi-tape { position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 90px; height: 30px; background-color: rgba(255, 143, 171, 0.8); backdrop-filter: blur(5px); z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 2px; }
         .tape-purple { background-color: rgba(224, 177, 203, 0.8); transform: translateX(-50%) rotate(2deg); }
         .tape-pink { background-color: rgba(251, 111, 146, 0.8); transform: translateX(-50%) rotate(-1deg); }
         
@@ -148,81 +174,66 @@
         .scrapbook-card:nth-child(4n) { transform: rotate(-2deg); }
 
         .scrapbook-card:hover { transform: scale(1.1) rotate(0deg) translateY(-10px) !important; box-shadow: 5px 25px 40px rgba(251, 111, 146, 0.4); z-index: 10; border-color: var(--pink-main); }
-        .cute-sticker { position: absolute; bottom: 15px; right: 15px; font-size: 1.8rem; transform: rotate(-15deg); filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2)); }
+        .cute-sticker { position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; transform: rotate(-15deg); filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2)); }
 
-        /* --- IDEA THAY THẾ: PHIẾU ĐẶC QUYỀN (LOVE COUPONS) --- */
+        /* --- NƯỚC DÂNG TRÀN MÀN HÌNH --- */
+        #love-flood { position: fixed; bottom: 0; left: 0; width: 100vw; height: 0vh; background: linear-gradient(to top, rgba(201, 24, 74, 0.95), rgba(251, 111, 146, 0.8)); backdrop-filter: blur(5px); z-index: 99990; transition: height 0.1s linear, opacity 0.5s ease; pointer-events: none; border-top: 5px solid rgba(255,255,255,0.5); box-shadow: 0 -20px 50px rgba(251, 111, 146, 0.8); }
+
+        /* --- ĐỘ ĐO TÌNH YÊU --- */
+        .love-meter-section { text-align: center; padding: 40px 20px; max-width: 800px; margin-bottom: 100px; width: 90%; position: relative; z-index: 99991; }
+        .love-meter-section h2 { font-family: 'Mali', cursive; font-size: 2.2rem; color: var(--pink-dark); margin-bottom: 20px; }
+        .meter-container { position: relative; width: 100%; height: 50px; background: #fff; border-radius: 50px; border: 5px solid var(--purple-light); overflow: hidden; margin-bottom: 30px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.1); }
+        .meter-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); border-radius: 50px; transition: width 0.1s ease-out; }
+        .meter-btn { background: var(--pink-dark); color: white; padding: 15px 30px; font-size: 1.2rem; font-family: 'Mali', cursive; border-radius: 50px; border: 4px solid #fff; font-weight: 900; cursor: pointer; box-shadow: 0 10px 20px rgba(201, 24, 74, 0.4); transition: 0.2s; }
+        .meter-btn:hover { background: var(--pink-main); transform: translateY(-3px); }
+        .meter-btn:active { transform: translateY(2px) scale(0.98); }
+        .meter-status { font-family: 'Mali', cursive; font-size: 1.3rem; font-weight: 900; color: var(--pink-dark); margin-top: 20px; min-height: 40px; text-shadow: 2px 2px 5px rgba(255,255,255,0.8); }
+
+        /* --- TẠP HÓA ĐẶC QUYỀN (LOVE COUPONS) --- */
         .coupons-section { max-width: 700px; padding: 50px 30px; }
         .coupon-container { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; margin-top: 30px;}
-        
-        .coupon {
-            display: flex; width: 100%; max-width: 500px; background: #fff; border-radius: 20px; 
-            box-shadow: 0 8px 20px rgba(251, 111, 146, 0.2); overflow: hidden; cursor: pointer; 
-            transition: 0.3s; border: 3px dashed var(--pink-main); position: relative;
-        }
+        .coupon { display: flex; width: 100%; max-width: 500px; background: #fff; border-radius: 20px; box-shadow: 0 8px 20px rgba(251, 111, 146, 0.2); overflow: hidden; cursor: pointer; transition: 0.3s; border: 3px dashed var(--pink-main); position: relative; }
         .coupon:hover { transform: scale(1.05) rotate(-2deg); box-shadow: 0 15px 30px rgba(251, 111, 146, 0.4); }
         .coupon-left { background: linear-gradient(135deg, var(--pink-main), var(--pink-dark)); color: #fff; padding: 25px 20px; font-weight: 900; font-family: 'Mali', cursive; font-size: 1.2rem; display: flex; align-items: center; border-right: 3px dashed #fff; text-align: center; }
         .coupon-right { padding: 20px; flex: 1; color: var(--purple-dark); font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
-        
         .coupon.used { opacity: 0.6; filter: grayscale(0.5); pointer-events: none; transform: scale(0.95); }
-        .coupon.used::after {
-            content: 'ĐÃ SỬ DỤNG ✔️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
-            background: rgba(255,255,255,0.95); padding: 10px 20px; border: 4px solid #d90429; color: #d90429;
-            font-family: 'Mali', cursive; font-weight: 900; font-size: 1.8rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: stampIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .coupon.used::after { content: 'ĐÃ SỬ DỤNG ✔️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); background: rgba(255,255,255,0.95); padding: 10px 20px; border: 4px solid #d90429; color: #d90429; font-family: 'Mali', cursive; font-weight: 900; font-size: 1.8rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: stampIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes stampIn { 0% { transform: translate(-50%, -50%) rotate(-15deg) scale(3); opacity: 0; } 100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); opacity: 1; } }
 
-
-        /* --- MINIGAME CHUYỂN GIAO QUÀ THẬT --- */
-        .minigame-section { position: relative; overflow: hidden; }
+        /* --- MINIGAME CHUYỂN GIAO QUÀ --- */
+        .minigame-section { padding: 40px 20px; position: relative; overflow: hidden; }
         .game-area { position: relative; width: 100%; height: 250px; background: rgba(255, 228, 232, 0.5); border-radius: 20px; border: 3px dashed var(--pink-main); margin-bottom: 20px; }
         .moving-heart { position: absolute; font-size: 3rem; cursor: pointer; user-select: none; transition: top 0.4s ease, left 0.4s ease; filter: drop-shadow(0 5px 10px rgba(251, 111, 146, 0.5)); transform: translate(-50%, -50%); }
         .game-reward { display: none; animation: bounceIn 0.5s; }
         .gift-box { font-size: 6rem; cursor: pointer; display: inline-block; animation: swingLock 2s infinite; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.2)); }
         
         /* OVERLAY COUNTDOWN MỞ QUÀ */
-        #countdown-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(255, 179, 198, 0.98); z-index: 999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: 0.3s;
-        }
+        #countdown-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(255, 179, 198, 0.98); z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
         .countdown-num { font-size: 10rem; font-weight: 900; color: #fff; text-shadow: 0 10px 40px rgba(201, 24, 74, 0.6); animation: zoomBeat 1s infinite; }
-        .countdown-text { font-family: 'Mali', cursive; font-size: 3rem; color: var(--pink-dark); margin-top: 20px; text-align: center; padding: 0 20px;}
+        .countdown-text { font-family: 'Mali', cursive; font-size: 2.5rem; color: var(--pink-dark); margin-top: 20px; text-align: center; padding: 0 20px;}
         @keyframes zoomBeat { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
 
-        /* --- ĐẠI HỘI SANRIO (FALLBACK EMOJI) --- */
-        .sanrio-squad { display: flex; flex-wrap: wrap; justify-content: center; gap: 45px; padding: 50px; max-width: 950px; border-radius: 60px; }
+        /* --- ĐẠI HỘI SANRIO --- */
+        .sanrio-squad { display: flex; flex-wrap: wrap; justify-content: center; gap: 35px; padding: 40px 20px; max-width: 950px; border-radius: 60px; }
         .sanrio-item { position: relative; text-align: center; }
-        .sanrio-img { width: 110px; height: 110px; object-fit: contain; transition: 0.3s; animation: float 3s ease-in-out infinite; cursor: pointer; filter: drop-shadow(0 10px 15px rgba(224, 177, 203, 0.8)); }
-        .emoji-fallback {
-            width: 100px; height: 100px; background: #fff; border: 4px solid var(--pink-main);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 3.5rem; margin: 0 auto; box-shadow: 0 10px 20px rgba(251, 111, 146, 0.3);
-            animation: float 3s ease-in-out infinite; cursor: pointer;
-        }
+        .sanrio-img { width: 90px; height: 90px; object-fit: contain; transition: 0.3s; animation: float 3s ease-in-out infinite; cursor: pointer; filter: drop-shadow(0 10px 15px rgba(224, 177, 203, 0.8)); }
+        .emoji-fallback { width: 80px; height: 80px; background: #fff; border: 3px solid var(--pink-main); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; margin: 0 auto; box-shadow: 0 10px 20px rgba(251, 111, 146, 0.3); animation: float 3s ease-in-out infinite; cursor: pointer; }
         .sanrio-item:nth-child(even) .sanrio-img, .sanrio-item:nth-child(even) .emoji-fallback { animation-delay: 1.5s; }
         .sanrio-item:nth-child(3n) .sanrio-img, .sanrio-item:nth-child(3n) .emoji-fallback { animation-delay: 0.7s; }
         .sanrio-img:hover, .emoji-fallback:hover { transform: scale(1.3) translateY(-15px); animation-play-state: paused; }
         
-        .chat-bubble {
-            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: #fff; padding: 12px 20px; border-radius: 25px; border: 3px solid var(--pink-main);
-            width: 200px; font-weight: 900; color: var(--pink-dark); font-size: 1rem; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: 0 10px 25px rgba(251, 111, 146, 0.3); z-index: 50;
-        }
-        .chat-bubble::after { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); border-width: 12px 12px 0; border-style: solid; border-color: var(--pink-main) transparent transparent transparent; }
+        .chat-bubble { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #fff; padding: 10px 15px; border-radius: 20px; border: 2px solid var(--pink-main); width: 160px; font-weight: 900; color: var(--pink-dark); font-size: 0.9rem; opacity: 0; pointer-events: none; transition: 0.4s; box-shadow: 0 10px 25px rgba(251, 111, 146, 0.3); z-index: 50; }
+        .chat-bubble::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: var(--pink-main) transparent transparent transparent; }
         .sanrio-item:hover .chat-bubble { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         /* --- THƯ TÌNH --- */
-        .love-letter {
-            background: #fff; background-image: repeating-linear-gradient(transparent, transparent 39px, rgba(251, 111, 146, 0.2) 39px, rgba(251, 111, 146, 0.2) 40px);
-            padding: 60px 50px; border-radius: 20px; box-shadow: 0 25px 50px rgba(94, 84, 142, 0.2);
-            font-size: 1.35rem; line-height: 40px; position: relative; border: 3px solid var(--white); font-weight: 800; color: var(--purple-dark); text-align: left;
-            width: 90%; max-width: 800px; margin-bottom: 50px;
-        }
-        .love-letter::before { content: ''; position: absolute; top: 0; bottom: 0; left: 40px; width: 4px; background: rgba(251, 111, 146, 0.6); border-radius: 10px; }
-        .love-letter p { margin-left: 30px; margin-bottom: 20px; }
-        .signature { text-align: right; font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--pink-dark); margin-top: 30px; }
+        .love-letter { background: #fff; background-image: repeating-linear-gradient(transparent, transparent 39px, rgba(251, 111, 146, 0.2) 39px, rgba(251, 111, 146, 0.2) 40px); padding: 40px 30px; border-radius: 20px; box-shadow: 0 25px 50px rgba(94, 84, 142, 0.2); font-size: 1.15rem; line-height: 40px; position: relative; border: 3px solid var(--white); font-weight: 800; color: var(--purple-dark); text-align: left; width: 90%; max-width: 800px; margin-bottom: 50px; }
+        .love-letter::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 3px; background: rgba(251, 111, 146, 0.6); border-radius: 10px; }
+        .love-letter p { margin-left: 15px; margin-bottom: 15px; }
+        .signature { text-align: right; font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--pink-dark); margin-top: 30px; }
+
+        /* --- FOOTER CUTE --- */
+        footer { width: 100%; text-align: center; padding: 20px; font-family: 'Mali', cursive; font-weight: 800; color: var(--purple-dark); font-size: 1.1rem; opacity: 0.8;}
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .particle { position: fixed; pointer-events: none; z-index: 99999; animation: pop 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; font-size: 25px; }
@@ -232,37 +243,50 @@
 </head>
 <body>
 
+    <audio id="sfx-pop" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
+    <audio id="sfx-sparkle" src="https://actions.google.com/sounds/v1/magic/magic_chime.ogg"></audio>
+    <audio id="sfx-error" src="https://actions.google.com/sounds/v1/ui/error_beep.ogg"></audio>
+
     <div class="clouds" id="clouds-container"></div>
+    <canvas id="sakura-canvas"></canvas>
+    <div id="love-flood"></div>
 
     <div id="login-screen">
         <div class="diary-box">
+            <div class="peek-bear" id="guardian-bear" onclick="pokeBear()">🐻</div>
+            <div class="bear-chat" id="bear-chat" style="position: absolute; top: -100px; left: 50%; transform: translateX(-50%) scale(0); background: #fff; padding: 12px 20px; border-radius: 20px; border: 3px solid var(--pink-main); color: var(--pink-dark); font-weight: 900; font-family: 'Nunito', sans-serif; box-shadow: 0 10px 25px rgba(251, 111, 146, 0.3); transition: 0.3s; opacity: 0; pointer-events: none; z-index: 20; white-space: nowrap; font-size: 1.1rem;">Click thử tớ đi!</div>
+            <style>.bear-chat.show { transform: translateX(-50%) scale(1) !important; opacity: 1 !important; } .bear-chat::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: var(--pink-main) transparent transparent transparent; }</style>
+            
             <div class="lock-icon">🔒</div>
-            <h2>Nhật Ký Của Trân Châu</h2>
+            <h2 id="greeting-title">Nhật Ký Của Trân Châu</h2>
             <p>Nhập mật khẩu để mở khóa xem "chòn thúiiii" giấu gì ở trong nhóoo</p>
-            <input type="password" id="pwd-input" class="password-input" placeholder="••••••" maxlength="6">
+            <input type="password" id="pwd-input" class="password-input" placeholder="(>‿◠)✌" maxlength="6">
             <button class="unlock-btn" onclick="checkPassword()">MỞ KHÓA 💖</button>
-            <div id="error-msg" class="error-msg">Mật khẩu sai roàiiiiii! Gợi ý: Ngày sinh của Tũn</div>
+            <button class="hint-btn" onclick="showHint()" style="background: none; border: none; color: var(--pink-dark); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem; margin-top: 15px; text-decoration: underline; transition: 0.2s;">Quên mật khẩu? 🗝️</button>
+            <div id="error-msg" class="error-msg">Mật khẩu sai roàiiiiii!</div>
         </div>
+    </div>
+
+    <div id="countdown-overlay">
+        <div class="countdown-num" id="cd-num">10</div>
+        <div class="countdown-text" id="cd-text">Bún Bò nhắm mắt lại và đếm ngược nha...</div>
     </div>
 
     <audio id="bg-music" loop>
         <source src="da-lo-yeu-em-nhieu.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="countdown-overlay">
-        <div class="countdown-num" id="cd-num">5</div>
-        <div class="countdown-text" id="cd-text">Nhắm mắt lại và chờ Bảo lấy quà nha...</div>
-    </div>
-
     <div id="main-content">
         <div id="music-player" onclick="toggleMusic()">
             <div class="vinyl" id="vinyl-disc"></div>
-            <span id="music-text" style="font-weight: 900; font-size: 1.1rem; color: var(--pink-dark);">Đang phát "Đã lỡ yêu em nhiều" 🎵</span>
+            <span id="music-text" style="font-weight: 900; font-size: 1rem; color: var(--pink-dark);">Đang phát nhạc 🎵</span>
         </div>
 
+        <button class="sos-btn" onclick="showSOS()">🆘 Bấm vào nếu dỗi Bảo!</button>
+
         <header class="reveal">
-            <h1>Happy 1 Month Anniversary!</h1>
-            <div class="subtitle">chòn thúiiiii ❤️ bún bòaaaa</div>
+            <h1>Happy 1 Month!</h1>
+            <div class="subtitle">chòn thúiiiii ❤️ vợ hơmmmmmmm</div>
             <div class="timer-container">
                 <div class="time-box"><span id="days">00</span><p>NGÀY</p></div>
                 <div class="time-box"><span id="hours">00</span><p>GIỜ</p></div>
@@ -326,16 +350,25 @@
             </div>
         </div>
 
+        <section class="cute-panel love-meter-section reveal">
+            <h2>Bảo yêu Linh bao nhiuu? </h2>
+            <div class="meter-container" id="meter-container">
+                <div class="meter-fill" id="meter-fill"></div>
+            </div>
+            <button class="meter-btn" id="meter-btn" onclick="startLoveMeter()">Nhấn để Đo Nàoooo 💕</button>
+            <div id="meter-status" class="meter-status">Đang đợi Linh bấm...</div>
+        </section>
+
         <section class="cute-panel minigame-section reveal">
-            <h2 style="font-family: 'Caveat', cursive; font-size: 3.5rem;">Thử Thách Nhận Quà! 🎁</h2>
-            <p style="margin-bottom: 20px; font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Bảo có giấu một món quà bí mật ở ngoài đóoo...<br>Linh hãy nhanh tay "Bắt lấy trái tim" 3 lần để mở khóa nha!</p>
+            <h2 style="font-family: 'Caveat', cursive; font-size: 3rem;">Thử Thách Nhận Quà! 🎁</h2>
+            <p style="margin-bottom: 20px; font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Bảo có giấu một món quà bí mật ở ngoài đóoo...<br>Linh hãy nhanh tay "Bắt lấy trái tim" 3 lần để mở khóa nha</p>
             
             <div id="game-area" class="game-area">
                 <div id="catch-heart" class="moving-heart" onclick="catchHeart(event)" style="top: 50%; left: 50%;">💖</div>
             </div>
             
             <div id="game-reward" class="game-reward">
-                <h3 style="color: var(--pink-dark); font-size: 1.8rem; margin-bottom: 15px;">Tuyệt vờiii! Linh đã bắt được! 🎉</h3>
+                <h3 style="color: var(--pink-dark); font-size: 1.5rem; margin-bottom: 15px;">Tuyệt vờiii! Linh đã bắt được! 🎉</h3>
                 <div class="gift-box" onclick="openRealGift()">🎁</div>
                 <p style="font-weight: 800; color: var(--purple-dark); margin-top: 10px;">(Nhấp vào hộp quà đi Bún Bò)</p>
             </div>
@@ -343,12 +376,12 @@
 
         <section class="cute-panel coupons-section reveal">
             <h2 style="font-family: 'Caveat', cursive; font-size: 3.5rem;">Tạp Hóa Đặc Quyền 🎟️</h2>
-            <p style="font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Nhân dịp 1 tháng, Linh được tặng 3 chiếc vé đặc quyền nè! <br>Lúc nào muốn xài thì Linh bấm vào rồi đưa Bảo xem nhá 👇</p>
+            <p style="font-weight: 800; color: var(--purple-dark); font-size: 1.1rem;">Nhân dịp 1 tháng, Linh được tặng 3 chiếc vé đặc quyền nè! <br>Lúc nào muốn xài thì Linh bấm vào rồi đưa Bảo nhóoooo</p>
             
             <div class="coupon-container">
                 <div class="coupon" onclick="useCoupon(this, 'Một chầu ăn sập Hà Nội do Bảo bao 🍲')">
                     <div class="coupon-left">VÉ VIP 1</div>
-                    <div class="coupon-right">Khám phá ẩm thực khắp cái hắt nờ o ii 🍲</div>
+                    <div class="coupon-right">Khám phá ẩm thực cả cái hắt nờ o iiiii 🍲</div>
                 </div>
                 <div class="coupon" onclick="useCoupon(this, 'Một cái ôm sạc đầy năng lượng 🫂')">
                     <div class="coupon-left">VÉ VIP 2</div>
@@ -356,7 +389,7 @@
                 </div>
                 <div class="coupon" onclick="useCoupon(this, 'Quyền được dỗi Bảo 1 ngày vô điều kiện 😤')">
                     <div class="coupon-left">VÉ VIP 3</div>
-                    <div class="coupon-right">Được quyền sở hữu Bảo 1 ngày vô điều kiện 😤</div>
+                    <div class="coupon-right">Được quyền sở hữu Bảo bốii trong 24 giờ vô điều kiện 😤</div>
                 </div>
             </div>
         </section>
@@ -365,23 +398,23 @@
             <h2 style="width: 100%; margin-bottom: 30px;">Hội Bạn Thân Chúc Mừng 🎉</h2>
             <p style="width: 100%; margin-bottom: 30px; font-weight: bold; color: var(--purple-dark);">Click vào tụi mình đi!</p>
             
-            <div class="sanrio-item" onclick="createHearts(event)">
+            <div class="sanrio-item" onclick="clickSanrio(event)">
                 <div class="chat-bubble">Trân Châu và Bún Bò mãi keo nha! ✨</div>
                 <img src="miffy.png" alt="Miffy" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🐇</div>'">
             </div>
-            <div class="sanrio-item" onclick="createHearts(event)">
+            <div class="sanrio-item" onclick="clickSanrio(event)">
                 <div class="chat-bubble">1 tháng vui vẻ nha Bảo và Linh! 🎀</div>
                 <img src="kitty.png" alt="Kitty" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🎀</div>'">
             </div>
-            <div class="sanrio-item" onclick="createHearts(event)">
+            <div class="sanrio-item" onclick="clickSanrio(event)">
                 <div class="chat-bubble">Chúc hai cậu mãi ngọt ngào! 🍓</div>
                 <img src="melody.png" alt="Melody" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🐰</div>'">
             </div>
-            <div class="sanrio-item" onclick="createHearts(event)">
+            <div class="sanrio-item" onclick="clickSanrio(event)">
                 <div class="chat-bubble">Bảo yêu Linh lắmmm! Đừng bắt nạt Bảo nha! 💜</div>
                 <img src="kuromi.png" alt="Kuromi" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>😈</div>'">
             </div>
-            <div class="sanrio-item" onclick="createHearts(event)">
+            <div class="sanrio-item" onclick="clickSanrio(event)">
                 <div class="chat-bubble">Chúc 2 người hạnh phúc trăm năm 🙆 </div>
                 <img src="cinnamoroll.png" alt="Purin" class="sanrio-img" onerror="this.outerHTML='<div class=\'emoji-fallback\'>🐶</div>'">
             </div>
@@ -394,11 +427,24 @@
             <p>Một tháng chỉ là vạch xuất phát thôi. Hãy để "Trân Châu" này được tiếp tục nắm chặt tay "Bún Bò", che chở và cùng nhau đi qua thêm nhiều tháng, nhiều năm nữa nhé. Cuốn album phía trên mới chỉ là những trang đầu tiên thôi, mình sẽ cùng nhau chụp thêm thật nhiều ảnh và in dài thêm nữaaaaaaaaaa nha!</p>
             <div class="signature">Thương Linh thật nhiều,<br>Bảo của Linh 💕</div>
         </section>
+        
+        <footer>Made with 💖 by Bảo for Linh</footer>
     </div>
 
     <script>
-        // --- HIỆU ỨNG SCROLL REVEAL (Lướt đến đâu hiện đến đó) ---
+        function playSFX(id) {
+            let sound = document.getElementById(id);
+            if(sound) { sound.currentTime = 0; sound.play().catch(e => {}); }
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
+            const hour = new Date().getHours();
+            let greet = "Ngày mới";
+            if (hour < 12) greet = "Buổi sáng";
+            else if (hour < 18) greet = "Buổi chiều";
+            else greet = "Buổi tối";
+            document.getElementById("greeting-title").innerText = `${greet} vui vẻ nha Bún Bò! 💖`;
+
             const observerOptions = { root: null, rootMargin: "0px", threshold: 0.15 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); }});
@@ -407,9 +453,9 @@
             revealElements.forEach(el => observer.observe(el));
         });
 
-        // --- TẠO MÂY NỀN TRÔI LƠ LỬNG ---
+        // --- MÂY TRÔI & SAKURA ---
         const cloudsContainer = document.getElementById('clouds-container');
-        for(let i = 0; i < 8; i++) {
+        for(let i = 0; i < 6; i++) {
             const cloud = document.createElement('div');
             cloud.classList.add('cloud'); cloud.innerText = '☁️';
             cloud.style.top = Math.random() * 80 + 'vh';
@@ -419,11 +465,80 @@
             cloudsContainer.appendChild(cloud);
         }
 
+        const canvas = document.getElementById('sakura-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 2; this.speedY = Math.random() * 1 + 0.5; this.speedX = Math.random() * 1 - 0.5;
+                this.angle = Math.random() * 360; this.spin = Math.random() * 0.2 - 0.1;
+            }
+            update() {
+                this.y += this.speedY; this.x += this.speedX; this.angle += this.spin;
+                if(this.y > canvas.height) { this.y = 0; this.x = Math.random() * canvas.width; }
+            }
+            draw() {
+                ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle);
+                ctx.fillStyle = 'rgba(255, 183, 197, 0.6)';
+                ctx.beginPath(); ctx.ellipse(0, 0, this.size, this.size/2, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+            }
+        }
+        for(let i=0; i<50; i++) particles.push(new Particle());
+        function animateSakura() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateSakura);
+        }
+        animateSakura();
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+        // --- GẤU CANH CỬA & HINT ---
+        const bearQuotes = [
+            "Bảo dặn tớ canh chừng ở đây! 🐻",
+            "Nhập pass nhanh lên hai người ơiii! 💕",
+            "Không có pass là tớ không cho vào đâu! 🛑",
+            "Công chúa Bún Bò xinh đẹp tuyệt trần! 🌸",
+            "Bảo yêu Linh lắm đó nhaaa! 🥰"
+        ];
+        function pokeBear() {
+            playSFX('sfx-pop');
+            const chat = document.getElementById('bear-chat');
+            chat.innerText = bearQuotes[Math.floor(Math.random() * bearQuotes.length)];
+            chat.classList.add('show');
+            setTimeout(() => { chat.classList.remove('show'); }, 3000);
+            createExplosion(window.innerWidth/2, 100, 10, ['🐻', '💖', '✨']);
+        }
+        function showHint() {
+            playSFX('sfx-pop');
+            const msg = document.getElementById('error-msg');
+            msg.innerText = "Mật khẩu là ngày sinh của người dễ thưn nhất cái trái đất nàyyyyy";
+            msg.style.color = "var(--purple-dark)";
+            msg.style.opacity = '1';
+        }
+
+        // --- NÚT DỖI (SOS BUTTON) ---
+        const sosMessages = [
+            "Bảo xin lỗi mòooo! Bún Bò đừng dỗi Bảo nha 🥺",
+            "Bảo mua trà sữa cho Linh nhée, cười lên điiiiiiii! 🧋",
+            "Công chúa Bún Bò là nhất, Bảo sai rồiiii! 🙇‍♂️",
+            "Cho Bảo ôm một cái để làm hòa nhaa 🫂",
+            "Trân Châu xin lỗi Bún Bò mờ, đừng giận nhaaaa 🍡"
+        ];
+        function showSOS() {
+            playSFX('sfx-pop');
+            alert(sosMessages[Math.floor(Math.random() * sosMessages.length)]);
+            createExplosion(window.innerWidth/2, window.innerHeight/2, 25, ['🥺', '💖', '🧋', '🍡', '🙇‍♂️']);
+        }
+
         // --- MÀN HÌNH KHÓA: 201207 ---
         function checkPassword() {
             const pwd = document.getElementById('pwd-input').value;
             const loginBox = document.querySelector('.diary-box');
+            const errorMsg = document.getElementById('error-msg');
             if (pwd === "201207") {
+                playSFX('sfx-sparkle'); 
                 document.getElementById('login-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('login-screen').style.display = 'none';
@@ -434,12 +549,13 @@
                 document.getElementById("vinyl-disc").classList.add("playing");
                 isPlaying = true;
                 createExplosion(window.innerWidth/2, window.innerHeight/2, 50, ['🌸', '✨', '💖', '🎀']);
-                
-                // Khởi động di chuyển tim sau khi login
                 heartInterval = setInterval(moveHeart, 1000);
             } else {
+                playSFX('sfx-error'); 
                 loginBox.classList.add('shake');
-                document.getElementById('error-msg').style.opacity = '1';
+                errorMsg.innerText = "Mật khẩu sai roàiiiiii! Nhấn 'Quên mật khẩu' đi Bún Bò!";
+                errorMsg.style.color = "#d90429";
+                errorMsg.style.opacity = '1';
                 setTimeout(() => { loginBox.classList.remove('shake'); }, 500);
             }
         }
@@ -451,12 +567,12 @@
             const bgMusic = document.getElementById("bg-music");
             const vinyl = document.getElementById("vinyl-disc");
             const txt = document.getElementById("music-text");
-            if (isPlaying) { bgMusic.pause(); vinyl.classList.remove("playing"); txt.innerText = 'Phát "Đã lỡ yêu em nhiều" 🎵'; } 
-            else { bgMusic.play(); vinyl.classList.add("playing"); txt.innerText = "Đang phát Đã lỡ yêu em nhiều 💜"; }
+            if (isPlaying) { bgMusic.pause(); vinyl.classList.remove("playing"); txt.innerText = 'Phát nhạc 🎵'; } 
+            else { bgMusic.play(); vinyl.classList.add("playing"); txt.innerText = "Đang phát 💜"; }
             isPlaying = !isPlaying;
         }
 
-        // --- TIMER ĐẾM NGÀY (Từ 09/05/2026) ---
+        // --- TIMER ĐẾM NGÀY ---
         const startDate = new Date(2026, 4, 9, 0, 0, 0).getTime();
         function updateTimer() {
             const now = new Date().getTime();
@@ -469,6 +585,50 @@
             }
         }
         setInterval(updateTimer, 1000); updateTimer();
+
+        // --- ĐỘ ĐO TÌNH YÊU NƯỚC TRÀN MÀN HÌNH ---
+        let loveMeterProgress = 0;
+        let meterInterval;
+        let isShattered = false;
+
+        function startLoveMeter() {
+            if (isShattered) return;
+            playSFX('sfx-pop');
+            const btn = document.getElementById('meter-btn');
+            const fill = document.getElementById('meter-fill');
+            const status = document.getElementById('meter-status');
+            const flood = document.getElementById('love-flood');
+            
+            btn.disabled = true;
+            btn.innerText = "Đang đo nha... 💓";
+            
+            meterInterval = setInterval(() => {
+                loveMeterProgress += 1;
+                
+                if(loveMeterProgress <= 100) {
+                    fill.style.width = loveMeterProgress + '%';
+                    status.innerText = "Đang phân tích dữ liệu... " + loveMeterProgress + "%";
+                } 
+                else if (loveMeterProgress <= 200) {
+                    status.innerHTML = "CẢNH BÁO: TÌNH YÊU QUÁ TẢI NƯỚC TRÀN RA NGOÀI RỒI!!! 🌊💕";
+                    status.style.color = '#c9184a';
+                    let floodHeight = loveMeterProgress - 100;
+                    flood.style.height = floodHeight + 'vh';
+                } 
+                else {
+                    clearInterval(meterInterval);
+                    isShattered = true;
+                    playSFX('sfx-sparkle'); 
+                    flood.style.background = "#fff"; 
+                    setTimeout(() => { flood.style.opacity = "0"; }, 200); 
+                    
+                    status.innerHTML = "BÙMM! Trái tim Bảo đã nổ tung vì yêu Linh quá nhiềuuu! 💖✨💥";
+                    btn.innerText = "TÌNH YÊU VÔ CỰC! 💕";
+                    
+                    megaExplosion();
+                }
+            }, 60); 
+        }
 
         // --- MINIGAME: BẮT LẤY TRÁI TIM ---
         let catchCount = 0;
@@ -483,10 +643,12 @@
         function catchHeart(e) {
             e.stopPropagation();
             catchCount++;
+            playSFX('sfx-pop');
             createExplosion(e.clientX, e.clientY, 10, ['✨', '💖']);
             
             if(catchCount >= 3) {
                 clearInterval(heartInterval);
+                playSFX('sfx-sparkle');
                 document.getElementById('catch-heart').style.display = 'none';
                 document.getElementById('game-area').style.display = 'none';
                 document.getElementById('game-reward').style.display = 'block';
@@ -495,8 +657,9 @@
             }
         }
 
-        // --- MỞ QUÀ VÀ ĐẾM NGƯỢC ---
+        // --- MỞ QUÀ: COUNTDOWN 10 GIÂY ---
         function openRealGift() {
+            playSFX('sfx-sparkle');
             const overlay = document.getElementById('countdown-overlay');
             const cdNum = document.getElementById('cd-num');
             const cdText = document.getElementById('cd-text');
@@ -504,18 +667,20 @@
             overlay.style.visibility = 'visible';
             overlay.style.opacity = '1';
             
-            let count = 5;
+            let count = 10;
             cdNum.innerText = count;
-            cdText.innerText = "Nhắm mắt lại nha...";
+            cdText.innerText = "Bún Bò nhắm mắt lại đếm ngược nha...";
 
             const cdInterval = setInterval(() => {
                 count--;
                 if(count > 0) {
                     cdNum.innerText = count;
+                    playSFX('sfx-pop'); 
                 } else {
                     clearInterval(cdInterval);
                     cdNum.innerText = "💖";
-                    cdText.innerText = "Xòe tay ra và mở mắt nào Bún Bò ơiii!";
+                    cdText.innerText = "Mở mắt ra nào công chúa ơi! 🥰";
+                    playSFX('sfx-sparkle');
                     megaExplosion();
                     
                     setTimeout(() => {
@@ -526,23 +691,25 @@
             }, 1000);
         }
 
-        // --- JS CHO TẠP HÓA TÌNH YÊU (COUPON) ---
+        // --- TẠP HÓA TÌNH YÊU ---
         function useCoupon(element, text) {
             if(element.classList.contains('used')) return;
-            
-            // Nổ pháo hoa tại vị trí coupon
+            playSFX('sfx-sparkle'); 
             const rect = element.getBoundingClientRect();
             createExplosion(rect.left + rect.width/2, rect.top + rect.height/2, 25, ['🎟️', '💖', '✨', '🎉']);
-            
-            // Đánh dấu đã dùng
             element.classList.add('used');
-            
             setTimeout(() => {
                 alert(`Ting ting! Bảo đã nhận được yêu cầu: "${text}".\nLinh nhớ đòi nha! 😘`);
             }, 500);
         }
 
-        // --- TẠO HIỆU ỨNG NỔ HOÀNH TRÁNG ---
+        // --- SANRIO CLICK THÊM ÂM THANH ---
+        function clickSanrio(e) {
+            playSFX('sfx-pop');
+            createExplosion(e.clientX, e.clientY, 15, ['💕', '✨', '🥰', '🌸']);
+        }
+
+        // --- HIỆU ỨNG NỔ HOÀNH TRÁNG ---
         function megaExplosion() {
             let times = 0;
             const burst = setInterval(() => {
@@ -550,10 +717,6 @@
                 times++;
                 if(times > 10) clearInterval(burst);
             }, 300);
-        }
-
-        function createHearts(e) {
-            createExplosion(e.clientX, e.clientY, 15, ['💕', '✨', '🥰', '🌸']);
         }
 
         function createExplosion(x, y, count, iconsArray) {
@@ -574,7 +737,7 @@
         }
 
         document.addEventListener('click', e => { 
-            if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && !e.target.classList.contains('sanrio-img') && !e.target.classList.contains('emoji-fallback') && !e.target.closest('.coupon')) {
+            if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && !e.target.classList.contains('sanrio-img') && !e.target.classList.contains('emoji-fallback') && !e.target.closest('.coupon') && !e.target.classList.contains('peek-bear') && !e.target.classList.contains('hint-btn')) {
                 createExplosion(e.clientX, e.clientY, 5, ['✨', '💖']); 
             }
         });
